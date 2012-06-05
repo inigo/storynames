@@ -54,10 +54,12 @@ object Cultures {
 
   val Roman = generator.readCulture("/roman.txt",
     Map("male" -> Ruleset("PRAENOMEN LIST" then "NOMEN LIST" then "COGNOMEN LIST"),
-      "female" -> Ruleset( feminize(take("NOMEN LIST")) then "COGNOMEN LIST") ))
+      "female" -> Ruleset( feminize(take("NOMEN LIST")) then optional(take("COGNOMEN LIST"))) ))
 
   def take(listName: String) = (c: Culture, random: Random) => c.nameComponent(listName, random)
   def feminize(rule: Ruleset.Rule) = (c: Culture, random: Random) => rule(c, random).replaceAll("ius$","ia")
+  def optional(rule: Ruleset.Rule, percent: Float = 0.5F) =
+    (c: Culture, random: Random) => if (random.nextFloat() < percent) rule(c, random) else ""
 }
 
 case class Culture(name: String, private val lists: Iterable[Names], private val rules: Map[String, Ruleset]) {
@@ -66,7 +68,7 @@ case class Culture(name: String, private val lists: Iterable[Names], private val
   def maleName(randomizer:Random = rnd) = createName("male", randomizer)
   def femaleName(randomizer:Random = rnd) = createName("female", randomizer)
   def createName(nameType: String, randomizer:Random = rnd) =
-    rules(nameType).actions.map( fn => fn.apply(this, randomizer) ).mkString(" ")
+    rules(nameType).actions.map( fn => fn.apply(this, randomizer) ).mkString(" ").trim
 
   def nameComponent(listName: String, randomizer: Random) = lists.find( _.name==listName ).get.randomName(randomizer)
 }

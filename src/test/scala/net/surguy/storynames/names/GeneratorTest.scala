@@ -32,7 +32,8 @@ class GeneratorTest extends SpecificationWithJUnit {
 
   "Roman culture" should {
     "have male names" in { Roman.maleName(rnd) must beEqualTo("Gaius Pontius Praeconinus (herald)")}
-    "have female names" in { Roman.femaleName(rnd) must beEqualTo("Antonia Varro (blockhead)")}
+    "have female names ending in 'ia'" in { Roman.femaleName(rnd) must beEqualTo("Antonia")}
+    "have female names with an optional cognomen" in { Roman.femaleName(new Random(101)) must beEqualTo("Ambrosia Piso (mortar)")}
   }
 
 }
