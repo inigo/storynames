@@ -48,6 +48,11 @@ class GeneratorTest extends SpecificationWithJUnit {
     "have female names" in { Angels.femaleName(rnd) must beEqualTo("Ra'uel, Revealer of the Rock") }
   }
 
+  "Bible people" should {
+    "have male names" in { Biblical.maleName(rnd) must beEqualTo("Michael")}
+    "have female names" in { Biblical.femaleName(rnd) must beEqualTo("Rebecca") }
+  }
+
   "Russian culture" should {
     "have male names" in { Russian.maleName(rnd) must beEqualTo("Boris Piotrovich Vorapaev")}
     "have female names" in { Russian.femaleName(rnd) must beEqualTo("Evgeniya Piotrovna Vorapaev") }

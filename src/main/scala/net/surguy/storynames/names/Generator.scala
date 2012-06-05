@@ -74,6 +74,11 @@ object Cultures {
                     then regex(take("SURNAMES"),"sky$", "skaya"))
     ))
 
+  val Biblical = generator.readCulture("/biblical.txt",
+    Map("male" -> Ruleset(List(oneOf(take("COMMON MALE"), take("LESS COMMON MALE"), take("UNUSUAL MALE"))) ),
+      "female" -> Ruleset(List(oneOf(take("COMMON FEMALE"), take("LESS COMMON FEMALE"), take("UNUSUAL FEMALE"))) )
+    ))
+
   def take(listName: String) = (c: Culture, random: Random) => c.nameComponent(listName, random)
   def feminize(rule: Ruleset.Rule) = (c: Culture, random: Random) => rule(c, random).replaceAll("ius$","ia")
   def optional(rule: Ruleset.Rule, percent: Float = 0.5F) =
@@ -84,6 +89,7 @@ object Cultures {
   def regex(rule: Ruleset.Rule, regex: String, replacement: String = "") =
     (c: Culture, random: Random) => rule(c, random).replaceAll(regex, replacement)
   def patronymic(rule: Ruleset.Rule, text: String) = (c: Culture, random: Random) => rule(c, random).trim+text
+  def oneOf(rules: Ruleset.Rule*) = (c: Culture, random: Random) => rules(random.nextInt(rules.length)).apply(c, random)
 }
 
 case class Culture(name: String, private val lists: Iterable[Names], private val rules: Map[String, Ruleset]) {
