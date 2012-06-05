@@ -1,8 +1,8 @@
 package net.surguy.storynames.names
 
 import util.Random
-import scalax.io.{LongTraversable, Resource}
-import collection.mutable.ListBuffer
+import scalax.io.Resource
+import Utils.Implicits._
 
 /**
  * Generate plausible names based on the lists from the Story Games Names Project.
@@ -12,25 +12,11 @@ import collection.mutable.ListBuffer
 class Generator {
   private implicit val codec = scalax.io.Codec.UTF8
 
-  def groupStartingWith(traversable: LongTraversable[String], groupingFn: (String) => Boolean):Seq[List[String]] = {
-    val lists = new ListBuffer[List[String]]()
-
-    var currentBuffer = new ListBuffer[String]()
-    for (s <- traversable) {
-      if (groupingFn(s)) {
-        if (currentBuffer.size > 0) { lists.append(currentBuffer.toList) }
-        currentBuffer = new ListBuffer[String]()
-      }
-      currentBuffer.append(s)
-    }
-    lists.append(currentBuffer.toList)
-
-    lists
-  }
-
   def readCulture(filename: String, rules: Map[String, List[String]]): Culture = {
+    val allUppercase = (s:String) => ! s.exists( _.isLower )
+
     val lines = Resource.fromInputStream(this.getClass.getResourceAsStream(filename)).lines()
-    val names = for (group <- groupStartingWith( lines, ! _.exists( _.isLower ))) yield {
+    val names = for (group <- lines.groupStartingWith( allUppercase )) yield {
       val name = group(0)
       val items = group.tail.filter( _.trim.size > 0 ).map( _.replaceFirst("^\\d+(\\.)?","").trim  )
       Names(name, items)
