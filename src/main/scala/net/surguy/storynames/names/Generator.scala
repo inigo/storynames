@@ -29,13 +29,21 @@ object Cultures {
   private val generator = new Generator()
 
   val bakerStreet = generator.readCulture("/baker_street.txt",
-    Map("male" -> List("MALE","SURNAME"), "female" -> List("FEMALE", "SURNAME")  ))
+    Map("male" -> ("MALE" then "SURNAME"), "female" -> ("FEMALE" then "SURNAME")  ))
 
   val celtic = generator.readCulture("/celtic.txt",
     Map("male" -> List("MALE"), "female" -> List("FEMALE")  ))
 
   val elizabethan = generator.readCulture("/elizabethan.txt",
-    Map("male" -> List("MALE", "SURNAME"), "female" -> List("FEMALE", "SURNAME")  ))
+    Map("male" -> ("MALE" then "SURNAME"), "female" -> ("FEMALE" then "SURNAME") ))
+
+
+  implicit def wrapString(first: String) = new {
+    def then(suffix: String):List[String] = List(first, suffix)
+  }
+  implicit def wrapStringList(first: List[String]) = new {
+    def then(suffix: String):List[String] = first ++ List(suffix)
+  }
 
 }
 
