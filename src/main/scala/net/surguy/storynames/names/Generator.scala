@@ -22,8 +22,8 @@ class Generator {
       Names(name, items)
     }
 
-    val tidiedFilename = filename.substring(0, filename.lastIndexOf(".")).replaceAll("_"," ")
-    Culture(tidiedFilename, names.toList, rules)
+    val cultureName = names(0).name
+    Culture(cultureName, names.toList, rules)
   }
 
 }
