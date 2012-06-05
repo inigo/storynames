@@ -11,25 +11,25 @@ import collection.mutable.ListBuffer
 object Utils {
 
   object Implicits {
-    implicit def wrapList(traversable: LongTraversable[String]) = new {
-      def groupStartingWith(groupingFn: (String) => Boolean) = Utils.groupStartingWith(traversable, groupingFn)
+    implicit def wrapList[T](traversable: LongTraversable[T]) = new {
+      def groupStartingWith(groupingFn: (T) => Boolean) = Utils.groupStartingWith(traversable, groupingFn)
     }
   }
 
-  def groupStartingWith(traversable: LongTraversable[String], groupingFn: (String) => Boolean):Seq[List[String]] = {
-    val lists = new ListBuffer[List[String]]()
+  def groupStartingWith[T](traversable: LongTraversable[T], groupingFn: (T) => Boolean):Seq[List[T]] = {
+    val lists = new ListBuffer[List[T]]()
 
-    var currentBuffer = new ListBuffer[String]()
-    for (s <- traversable) {
-      if (groupingFn(s)) {
+    var currentBuffer = new ListBuffer[T]()
+    for (item <- traversable) {
+      if (groupingFn(item)) {
         if (currentBuffer.size > 0) { lists.append(currentBuffer.toList) }
-        currentBuffer = new ListBuffer[String]()
+        currentBuffer = new ListBuffer[T]()
       }
-      currentBuffer.append(s)
+      currentBuffer.append(item)
     }
     lists.append(currentBuffer.toList)
 
-    lists
+    lists.toList
   }
 
 
