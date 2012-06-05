@@ -14,7 +14,7 @@ class Generator {
     val lines = Resource.fromInputStream(this.getClass.getResourceAsStream(filename)).lines()
     val names: Seq[Names] = for (group <- lines.groupStartingWith( allUppercase )) yield {
       val name = group(0)
-      val items = group.tail.filter( _.trim.size > 0 ).map( _.replaceFirst("^\\d+(\\.)?","").trim  )
+      val items = group.tail.filter( _.trim.size > 0 ).map( _.replaceFirst("^\\d+(\\.)?","").replaceAll("\\s"," ").trim  )
       Names(name, items)
     }
 
@@ -68,12 +68,22 @@ object Cultures {
       "female" -> Ruleset(suffix(take("FEMININE NAMES"),",") then "TITLES OF ANGELS")
     ))
 
+  val Russian = generator.readCulture("/russian.txt",
+    Map("male" -> Ruleset(removeBrackets(take("MALE")) then patronymic(removeBrackets(take("MALE")),"ovich") then "SURNAMES"),
+      "female" -> Ruleset(removeBrackets(take("FEMALE")) then patronymic(removeBrackets(take("MALE")),"ovna")
+                    then regex(take("SURNAMES"),"sky$", "skaya"))
+    ))
+
   def take(listName: String) = (c: Culture, random: Random) => c.nameComponent(listName, random)
   def feminize(rule: Ruleset.Rule) = (c: Culture, random: Random) => rule(c, random).replaceAll("ius$","ia")
   def optional(rule: Ruleset.Rule, percent: Float = 0.5F) =
     (c: Culture, random: Random) => if (random.nextFloat() < percent) rule(c, random) else ""
   def suffix(rule: Ruleset.Rule, suffix: String) =
     (c: Culture, random: Random) => rule(c, random)+suffix
+  def removeBrackets(rule: Ruleset.Rule) = regex(rule, "\\s*\\(.*\\)")
+  def regex(rule: Ruleset.Rule, regex: String, replacement: String = "") =
+    (c: Culture, random: Random) => rule(c, random).replaceAll(regex, replacement)
+  def patronymic(rule: Ruleset.Rule, text: String) = (c: Culture, random: Random) => rule(c, random).trim+text
 }
 
 case class Culture(name: String, private val lists: Iterable[Names], private val rules: Map[String, Ruleset]) {
@@ -88,7 +98,7 @@ case class Culture(name: String, private val lists: Iterable[Names], private val
 }
 
 case class Names(name: String, items: Seq[String]) {
-  def randomName(random: Random) = items( random.nextInt(items.length) )
+  def randomName(random: Random) = items( random.nextInt(items.length) ).trim
 }
 
 case class Ruleset(actions: List[Ruleset.Rule])
