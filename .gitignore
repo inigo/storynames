@@ -1,0 +1,20 @@
+target
+lib_managed
+project/boot
+project/build/target
+*.swp
+*~
+
+# IDEA configuration
+*.iml
+.idea
+
+# Eclipse configuration
+.settings
+.classpath
+.project
+.manager
+.scala_dependencies
+
+# Other source control
+.svn
