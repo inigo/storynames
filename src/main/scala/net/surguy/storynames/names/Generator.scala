@@ -10,11 +10,7 @@ import Utils.Implicits._
  * @author Inigo Surguy
  */
 class Generator {
-  private implicit val codec = scalax.io.Codec.UTF8
-
   def readCulture(filename: String, rules: Map[String, List[String]]): Culture = {
-    val allUppercase = (s:String) => ! s.exists( _.isLower )
-
     val lines = Resource.fromInputStream(this.getClass.getResourceAsStream(filename)).lines()
     val names = for (group <- lines.groupStartingWith( allUppercase )) yield {
       val name = group(0)
@@ -26,6 +22,7 @@ class Generator {
     Culture(cultureName, names.toList, rules)
   }
 
+  private def allUppercase(s:String) = ! s.exists( _.isLower )
 }
 
 object Cultures {
