@@ -31,10 +31,10 @@ object Cultures {
   private val generator = new Generator()
 
   implicit def wrapString(first: String) = new {
-    def then(suffix: String):List[String] = List(first, suffix)
+    def then(suffix: String):List[(Culture, Random) => String] = List(take(first), take(suffix))
   }
-  implicit def wrapStringList(first: List[String]) = new {
-    def then(suffix: String):List[String] = first ++ List(suffix)
+  implicit def wrapStringList(first: List[(Culture, Random) => String]) = new {
+    def then(suffix: String):List[(Culture, Random) => String] = first ++ List(take(suffix))
   }
 
   val Victorian = generator.readCulture("/baker_street.txt",
@@ -42,7 +42,7 @@ object Cultures {
       "female" -> Ruleset("FEMALE" then "SURNAME")  ))
 
   val Celtic = generator.readCulture("/celtic.txt",
-    Map("male" -> Ruleset(List("MALE")), "female" -> Ruleset(List("FEMALE"))  ))
+    Map("male" -> Ruleset(List(take("MALE"))), "female" -> Ruleset(List(take("FEMALE")))  ))
 
   val Elizabethan = generator.readCulture("/elizabethan.txt",
     Map("male" -> Ruleset("MALE" then "SURNAME"), "female" -> Ruleset("FEMALE" then "SURNAME") ))
@@ -51,6 +51,7 @@ object Cultures {
     Map("male" -> Ruleset("PRAENOMEN LIST" then "NOMEN LIST" then "COGNOMEN LIST"),
       "female" -> Ruleset("NOMEN LIST" then "COGNOMEN LIST") ))
 
+  def take(listName: String) = (c: Culture, random: Random) => c.nameComponent(listName, random)
 }
 
 case class Culture(name: String, private val lists: Iterable[Names], private val rules: Map[String, Ruleset]) {
@@ -60,11 +61,13 @@ case class Culture(name: String, private val lists: Iterable[Names], private val
   def femaleName(randomizer:Random = rnd) = createName("female", randomizer)
 
   def createName(nameType: String, randomizer:Random = rnd) =
-    rules(nameType).actions.map( listName => lists.find( _.name==listName ).get.randomName(randomizer) ).mkString(" ")
+    rules(nameType).actions.map( fn => fn.apply(this, randomizer) ).mkString(" ")
+
+  def nameComponent(listName: String, randomizer: Random) = lists.find( _.name==listName ).get.randomName(randomizer)
 }
 
 case class Names(name: String, items: Seq[String]) {
   def randomName(random: Random) = items( random.nextInt(items.length) )
 }
 
-case class Ruleset(actions: List[String])
+case class Ruleset(actions: List[(Culture, Random) => String])
