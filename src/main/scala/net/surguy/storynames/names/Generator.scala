@@ -10,7 +10,7 @@ import Utils.Implicits._
  * @author Inigo Surguy
  */
 class Generator {
-  def readCulture(filename: String, rules: Map[String, List[String]]): Culture = {
+  def readCulture(filename: String, rules: Map[String, Ruleset]): Culture = {
     val lines = Resource.fromInputStream(this.getClass.getResourceAsStream(filename)).lines()
     val names: Seq[Names] = for (group <- lines.groupStartingWith( allUppercase )) yield {
       val name = group(0)
@@ -38,31 +38,33 @@ object Cultures {
   }
 
   val Victorian = generator.readCulture("/baker_street.txt",
-    Map("male" -> ("MALE" then "SURNAME"), "female" -> ("FEMALE" then "SURNAME")  ))
+    Map("male" -> Ruleset("MALE" then "SURNAME"),
+      "female" -> Ruleset("FEMALE" then "SURNAME")  ))
 
   val Celtic = generator.readCulture("/celtic.txt",
-    Map("male" -> List("MALE"), "female" -> List("FEMALE")  ))
+    Map("male" -> Ruleset(List("MALE")), "female" -> Ruleset(List("FEMALE"))  ))
 
   val Elizabethan = generator.readCulture("/elizabethan.txt",
-    Map("male" -> ("MALE" then "SURNAME"), "female" -> ("FEMALE" then "SURNAME") ))
+    Map("male" -> Ruleset("MALE" then "SURNAME"), "female" -> Ruleset("FEMALE" then "SURNAME") ))
 
   val Roman = generator.readCulture("/roman.txt",
-    Map("male" -> ("PRAENOMEN LIST" then "NOMEN LIST" then "COGNOMEN LIST"),
-      "female" -> ("NOMEN LIST" then "COGNOMEN LIST") ))
+    Map("male" -> Ruleset("PRAENOMEN LIST" then "NOMEN LIST" then "COGNOMEN LIST"),
+      "female" -> Ruleset("NOMEN LIST" then "COGNOMEN LIST") ))
 
 }
 
-case class Culture(name: String, private val lists: Iterable[Names], private val rules: Map[String, Iterable[String]]) {
-  def maleName() = rules("male").map( s => lists.find( _.name==s).get.randomName ).mkString(" ")
-  def femaleName() = rules("female").map( s => lists.find( _.name==s).get.randomName ).mkString(" ")
+case class Culture(name: String, private val lists: Iterable[Names], private val rules: Map[String, Ruleset]) {
+  private val rnd = new Random()
 
-  def createName(nameType: String) = rules(nameType).map( listName => lists.find( _.name==listName ).get.randomName ).mkString(" ")
+  def maleName(randomizer:Random = rnd) = createName("male", randomizer)
+  def femaleName(randomizer:Random = rnd) = createName("female", randomizer)
+
+  def createName(nameType: String, randomizer:Random = rnd) =
+    rules(nameType).actions.map( listName => lists.find( _.name==listName ).get.randomName(randomizer) ).mkString(" ")
 }
 
 case class Names(name: String, items: Seq[String]) {
-  private val random: Random = new Random()
-
-  def randomName = items( random.nextInt(items.length) )
+  def randomName(random: Random) = items( random.nextInt(items.length) )
 }
 
-case class Gender(name: String)
+case class Ruleset(actions: List[String])
