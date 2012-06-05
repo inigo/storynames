@@ -43,4 +43,9 @@ class GeneratorTest extends SpecificationWithJUnit {
     "have goddess names" in { Egyptian.createName("goddess", rnd) must beEqualTo("Neith") }
   }
 
+  "Angels" should {
+    "have male names" in { Angels.maleName(rnd) must beEqualTo("Yurkemo, Revealer of the Rock")}
+    "have female names" in { Angels.femaleName(rnd) must beEqualTo("Ra'uel, Revealer of the Rock") }
+  }
+
 }
