@@ -56,6 +56,13 @@ object Cultures {
     Map("male" -> Ruleset("PRAENOMEN LIST" then "NOMEN LIST" then "COGNOMEN LIST"),
       "female" -> Ruleset( feminize(take("NOMEN LIST")) then optional(take("COGNOMEN LIST"))) ))
 
+  val Egyptian = generator.readCulture("/fantasy_egyptian.txt",
+    Map("male" -> Ruleset(List(take("ANCIENT MALE"))),
+      "female" -> Ruleset(List(take("ANCIENT FEMALE"))),
+      "god" -> Ruleset(List(take("GODS"))),
+      "goddess" -> Ruleset(List(take("GODDESSES")))
+    ))
+
   def take(listName: String) = (c: Culture, random: Random) => c.nameComponent(listName, random)
   def feminize(rule: Ruleset.Rule) = (c: Culture, random: Random) => rule(c, random).replaceAll("ius$","ia")
   def optional(rule: Ruleset.Rule, percent: Float = 0.5F) =

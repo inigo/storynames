@@ -36,4 +36,11 @@ class GeneratorTest extends SpecificationWithJUnit {
     "have female names with an optional cognomen" in { Roman.femaleName(new Random(101)) must beEqualTo("Ambrosia Piso (mortar)")}
   }
 
+  "Egyptian culture" should {
+    "have male names" in { Egyptian.maleName(rnd) must beEqualTo("Menetnasht�")}
+    "have female names" in { Egyptian.femaleName(rnd) must beEqualTo("DjaDja") }
+    "have god names" in { Egyptian.createName("god", rnd) must beEqualTo("Amun") }
+    "have goddess names" in { Egyptian.createName("goddess", rnd) must beEqualTo("Neith") }
+  }
+
 }
