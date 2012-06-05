@@ -1,6 +1,7 @@
 package net.surguy.storynames.names
 
 import org.specs2.mutable.{SpecificationWithJUnit, Specification}
+import Cultures._
 
 /**
  * @author Inigo Surguy
@@ -9,34 +10,45 @@ class GeneratorTest extends SpecificationWithJUnit {
 
   "Baker street" should {
     "have male names" in {
-      println(Cultures.bakerStreet.maleName())
-      Cultures.bakerStreet.maleName() must not beNull
+      println(Victorian.maleName())
+      Victorian.maleName() must not beNull
     }
     "have female names" in {
-      println(Cultures.bakerStreet.femaleName())
-      Cultures.bakerStreet.femaleName() must not beNull
+      println(Victorian.femaleName())
+      Victorian.femaleName() must not beNull
     }
   }
 
  "Celtic culture" should {
     "have male names" in {
-      println(Cultures.celtic.maleName())
-      Cultures.celtic.maleName() must not beNull
+      println(Celtic.maleName())
+      Celtic.maleName() must not beNull
     }
     "have female names" in {
-      println(Cultures.celtic.femaleName())
-      Cultures.celtic.femaleName() must not beNull
+      println(Celtic.femaleName())
+      Celtic.femaleName() must not beNull
     }
   }
 
  "Elizabethan culture" should {
     "have male names" in {
-      println(Cultures.elizabethan.maleName())
-      Cultures.elizabethan.maleName() must not beNull
+      println(Elizabethan.maleName())
+      Elizabethan.maleName() must not beNull
     }
     "have female names" in {
-      println(Cultures.elizabethan.femaleName())
-      Cultures.elizabethan.femaleName() must not beNull
+      println(Elizabethan.femaleName())
+      Elizabethan.femaleName() must not beNull
+    }
+  }
+
+  "Roman culture" should {
+    "have male names" in {
+      println(Roman.maleName())
+      Roman.maleName() must not beNull
+    }
+    "have female names" in {
+      println(Roman.femaleName())
+      Roman.femaleName() must not beNull
     }
   }
 
