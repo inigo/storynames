@@ -8,7 +8,7 @@
     <name>storynames</name>
     <description>[description text]</description>
     <url>https://github.com/inigo/storynames</url>
-    <packaging>jar</packaging>
+    <packaging>apk</packaging>
 
     <properties>
         <encoding>UTF-8</encoding>
@@ -16,6 +16,22 @@
     </properties>
 
     <dependencies>
+
+        <!-- Android -->
+        <dependency>
+            <groupId>com.google.android</groupId>
+            <artifactId>android</artifactId>
+            <version>4.0.1.2</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.android</groupId>
+            <artifactId>android-test</artifactId>
+            <version>4.0.1.2</version>
+            <scope>provided</scope>
+        </dependency>
+
         <!-- Scala library -->
         <dependency>
             <groupId>org.scala-lang</groupId>
@@ -74,8 +90,8 @@
                 <version>2.3.2</version>
                 <configuration>
                     <debug>true</debug>
-                    <source>1.5</source>
-                    <target>1.5</target>
+                    <source>1.6</source>
+                    <target>1.6</target>
                 </configuration>
             </plugin>
 
@@ -118,6 +134,25 @@
                 <configuration>
                     <scalaVersion>${scala.version}</scalaVersion>
                 </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>com.jayway.maven.plugins.android.generation2</groupId>
+                <artifactId>android-maven-plugin</artifactId>
+                <version>3.1.1</version>
+                <configuration>
+                    <sdk>
+                        <platform>15</platform>
+                    </sdk>
+                    <emulator>
+                        <avd>22</avd>
+                    </emulator>
+                    <undeployBeforeDeploy>true</undeployBeforeDeploy>
+                    <proguard>
+                        <skip>false</skip>
+                    </proguard>
+                </configuration>
+                <extensions>true</extensions>
             </plugin>
 
             <plugin>
@@ -167,6 +202,20 @@
         </plugins>
     </build>
 
+    <repositories>
+        <repository>
+            <id>scala-tools.org</id>
+            <name>Scala-tools Maven2 Repository</name>
+            <url>http://scala-tools.org/repo-releases</url>
+        </repository>
+    </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>scala-tools.org</id>
+            <name>Scala-tools Maven2 Repository</name>
+            <url>http://scala-tools.org/repo-releases</url>
+        </pluginRepository>
+    </pluginRepositories>
 
     <developers>
         <developer>
