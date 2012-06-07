@@ -2,6 +2,23 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="fill_parent"
     android:layout_height="fill_parent">
-    <TextView android:layout_width="fill_parent"
+    <TextView android:layout_width="fill_parent" android:id="@+id/text"
         android:layout_height="wrap_content" android:text="Hello World from Scala" />
+
+    <LinearLayout android:layout_width="fill_parent"
+                  android:gravity="bottom"
+                  android:layout_weight="1"
+                  android:layout_height="0dp">
+        <Button android:id="@+id/male"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:text="Male"
+                />
+        <Button android:id="@+id/female"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:text="Female"
+                />
+    </LinearLayout>
+
 </LinearLayout>
