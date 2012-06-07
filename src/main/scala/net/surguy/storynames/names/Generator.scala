@@ -2,7 +2,7 @@ package net.surguy.storynames.names
 
 import util.Random
 import scalax.io.Resource
-import Utils.Implicits._
+//import Utils.Implicits._
 
 /**
  * Generate plausible names based on the lists from the Story Games Names Project.
@@ -12,7 +12,7 @@ import Utils.Implicits._
 class Generator {
   def readCulture(filename: String, rules: Map[String, Ruleset]): Culture = {
     val lines = Resource.fromInputStream(this.getClass.getResourceAsStream(filename)).lines()
-    val names: Seq[Names] = for (group <- lines.groupStartingWith( allUppercase )) yield {
+    val names: Seq[Names] = for (group <- Utils.groupStartingWith(lines, allUppercase )) yield {
       val name = group(0)
       val items = group.tail.filter( _.trim.size > 0 ).map( _.replaceFirst("^\\d+(\\.)?","").replaceAll("\\s"," ").trim  )
       Names(name, items)
@@ -81,46 +81,45 @@ object RuleHelpers {
 }
 
 object Cultures {
-  import RuleHelpers._
   import Ruleset._
 
   private val generator = new Generator()
 
   val Victorian = generator.readCulture("/baker_street.txt",
-    Map("male" -> Ruleset("MALE" then "SURNAME"),
-      "female" -> Ruleset("FEMALE" then "SURNAME")  ))
-
-  val Celtic = generator.readCulture("/celtic.txt",
-    Map("male" -> Ruleset("MALE"),
-      "female" -> Ruleset("FEMALE")  ))
-
-  val Elizabethan = generator.readCulture("/elizabethan.txt",
-    Map("male" -> Ruleset("MALE" then "SURNAME"),
-      "female" -> Ruleset("FEMALE" then "SURNAME") ))
+    Map("male" -> Ruleset(List(take("MALE"), take("SURNAME"))),
+      "female" -> Ruleset(List(take("FEMALE"), take("SURNAME")))  ))
+//
+//  val Celtic = generator.readCulture("/celtic.txt",
+//    Map("male" -> Ruleset("MALE"),
+//      "female" -> Ruleset("FEMALE")  ))
+//
+//  val Elizabethan = generator.readCulture("/elizabethan.txt",
+//    Map("male" -> Ruleset("MALE" then "SURNAME"),
+//      "female" -> Ruleset("FEMALE" then "SURNAME") ))
 
   val Roman = generator.readCulture("/roman.txt",
-    Map("male" -> Ruleset("PRAENOMEN LIST" then "NOMEN LIST" then "COGNOMEN LIST"),
-      "female" -> Ruleset( feminize("NOMEN LIST") then optional("COGNOMEN LIST")) ))
-
-  val Egyptian = generator.readCulture("/fantasy_egyptian.txt",
-    Map("male" -> Ruleset("ANCIENT MALE"),
-      "female" -> Ruleset("ANCIENT FEMALE"),
-      "god" -> Ruleset("GODS"),
-      "goddess" -> Ruleset("GODDESSES")
-    ))
-
-  val Angels = generator.readCulture("/angels_and_demons.txt",
-    Map("male" -> Ruleset(suffix("MASCULINE NAMES",",") then "TITLES OF ANGELS"),
-      "female" -> Ruleset(suffix("FEMININE NAMES",",") then "TITLES OF ANGELS")
-    ))
-
-  val Russian = generator.readCulture("/russian.txt",
-    Map("male" -> Ruleset(removeBrackets("MALE") then patronymic(removeBrackets("MALE"),"ovich") then "SURNAMES"),
-      "female" -> Ruleset(removeBrackets("FEMALE") then patronymic(removeBrackets("MALE"),"ovna") then regex("SURNAMES","sky$", "skaya"))
-    ))
-
-  val Biblical = generator.readCulture("/biblical.txt",
-    Map("male" -> Ruleset(oneOf("COMMON MALE", "LESS COMMON MALE", "UNUSUAL MALE") ),
-      "female" -> Ruleset(oneOf("COMMON FEMALE", "LESS COMMON FEMALE", "UNUSUAL FEMALE") )
-    ))
+    Map("male" -> Ruleset(List(take("PRAENOMEN LIST"),take("NOMEN LIST"),take("COGNOMEN LIST"))),
+      "female" -> Ruleset(List(feminize(take("NOMEN LIST")),optional(take("COGNOMEN LIST")) )) ) )
+//
+//  val Egyptian = generator.readCulture("/fantasy_egyptian.txt",
+//    Map("male" -> Ruleset("ANCIENT MALE"),
+//      "female" -> Ruleset("ANCIENT FEMALE"),
+//      "god" -> Ruleset("GODS"),
+//      "goddess" -> Ruleset("GODDESSES")
+//    ))
+//
+//  val Angels = generator.readCulture("/angels_and_demons.txt",
+//    Map("male" -> Ruleset(suffix("MASCULINE NAMES",",") then "TITLES OF ANGELS"),
+//      "female" -> Ruleset(suffix("FEMININE NAMES",",") then "TITLES OF ANGELS")
+//    ))
+//
+//  val Russian = generator.readCulture("/russian.txt",
+//    Map("male" -> Ruleset(removeBrackets("MALE") then patronymic(removeBrackets("MALE"),"ovich") then "SURNAMES"),
+//      "female" -> Ruleset(removeBrackets("FEMALE") then patronymic(removeBrackets("MALE"),"ovna") then regex("SURNAMES","sky$", "skaya"))
+//    ))
+//
+//  val Biblical = generator.readCulture("/biblical.txt",
+//    Map("male" -> Ruleset(oneOf("COMMON MALE", "LESS COMMON MALE", "UNUSUAL MALE") ),
+//      "female" -> Ruleset(oneOf("COMMON FEMALE", "LESS COMMON FEMALE", "UNUSUAL FEMALE") )
+//    ))
 }
