@@ -3,8 +3,8 @@ package net.surguy.storynames.android
 import android.app.Activity
 import android.os.Bundle
 import net.surguy.storynames.names.Cultures
-import android.widget.{Button, TextView}
 import android.view.View
+import android.widget.{Spinner, Button, TextView}
 
 /**
  * @todo Add some documentation!
@@ -19,11 +19,13 @@ class MainActivity extends Activity {
     val text = findViewById(R.id.text).asInstanceOf[TextView]
     text.setText( Cultures.Roman.maleName() )
 
+    val spinner = findViewById(R.id.spinner).asInstanceOf[Spinner]
+
     val maleButton = findViewById(R.id.male).asInstanceOf[Button]
     val femaleButton = findViewById(R.id.female).asInstanceOf[Button]
+    maleButton.setOnClickListener( new ClickListener( () => text.setText( Cultures.getCulture( spinner.getSelectedItem.toString ).maleName() ) ) )
+    femaleButton.setOnClickListener( new ClickListener( () => text.setText( Cultures.getCulture( spinner.getSelectedItem.toString ).femaleName() ) ) )
 
-    maleButton.setOnClickListener( new ClickListener( () => text.setText( Cultures.Roman.maleName() ) ) )
-    femaleButton.setOnClickListener( new ClickListener( () => text.setText( Cultures.Roman.femaleName() ) ) )
 
   }
 

@@ -101,4 +101,20 @@ object Cultures {
     Map("male" -> Ruleset(List(oneOf(take("COMMON MALE"), take("LESS COMMON MALE"), take("UNUSUAL MALE"))) ),
       "female" -> Ruleset(List(oneOf(take("COMMON FEMALE"), take("LESS COMMON FEMALE"), take("UNUSUAL FEMALE"))) )
     ))
+
+  def getCulture(s: String): Culture = {
+    s match {
+      case "Egyptian" => Egyptian
+      case "Victorian" => Victorian
+      case "Roman" => Roman
+      case "Angels" => Angels
+      case "Russian" => Russian
+      case "Biblical" => Biblical
+      case "Elizabethan" => Elizabethan
+      case "Celtic" => Celtic
+      case _ => throw new IllegalArgumentException("No such culture")
+    }
+  }
+
+
 }

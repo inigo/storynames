@@ -1,4 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">ScalaActivity</string>
+
+    <string-array name="culture_array">
+        <item>Roman</item>
+        <item>Egyptian</item>
+        <item>Victorian</item>
+        <item>Celtic</item>
+        <item>Elizabethan</item>
+        <item>Biblical</item>
+        <item>Angels</item>
+        <item>Russian</item>
+    </string-array>
+
 </resources>
