@@ -42,6 +42,7 @@ class MainActivity extends Activity with ShakeActivity with RichViews {
           case "Finnish" => R.drawable.finnish
           case "Angels" => R.drawable.angel
           case "Biblical" => R.drawable.biblical
+          case "Russian" => R.drawable.russian
           case _ => R.drawable.paper
         }
         backgroundImage match {
@@ -51,6 +52,7 @@ class MainActivity extends Activity with ShakeActivity with RichViews {
           case "Finnish" => setTextColor(Color.BLACK, Color.BLACK)
           case "Angels" => setTextColor(Color.BLACK, Color.WHITE)
           case "Biblical" => setTextColor(Color.BLACK, Color.WHITE)
+          case "Russian" => setTextColor(Color.WHITE, Color.WHITE)
           case _ => setTextColor(Color.BLACK, Color.BLACK)
         }
         findView[LinearLayout](R.id.background).setBackgroundResource(imageId)
