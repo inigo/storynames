@@ -4,14 +4,14 @@ import android.app.Activity
 import android.os.Bundle
 import net.surguy.storynames.names.Cultures
 import net.surguy.android.shake.ShakeActivity
-import net.surguy.android.ViewHelpers
+import net.surguy.android.RichViews
 
 /**
  * Main activity for the app - displays names and allows culture selection.
  *
  * @author Inigo Surguy
  */
-class MainActivity extends Activity with ShakeActivity with ViewHelpers {
+class MainActivity extends Activity with ShakeActivity with RichViews {
 
   override def onCreate(savedInstanceState: Bundle) {
     super.onCreate(savedInstanceState)

@@ -9,13 +9,13 @@ import android.view.View.{OnLongClickListener, OnClickListener}
  * Add Scala wrappers to improve syntax of Android listeners.
  *
  * Usage:
- *  Extend ViewHelpers from your Activity
+ *  Extend RichViews from your Activity
  *  Add code like:
  *     findButton(R.id.myId).onClick{ /* do something */ }.onLongClick( /* do something else */)
  *
  * @author Inigo Surguy
  */
-trait ViewHelpers extends Activity {
+trait RichViews extends Activity {
 
   def findButton(id: Int) = findViewById(id).asInstanceOf[Button]
   def findSpinner(id: Int) = findViewById(id).asInstanceOf[Spinner]
@@ -28,13 +28,13 @@ trait ViewHelpers extends Activity {
   class RichView(v: View) {
     def onClick(fn: => Unit):View = {
       v.setOnClickListener(new OnClickListener {
-        def onClick(v: View) { fn }
+        override def onClick(v: View) { fn }
       })
       v
     }
     def onLongClick(fn: => Boolean):View = {
       v.setOnLongClickListener(new OnLongClickListener {
-        def onLongClick(v: View) { fn }
+        override def onLongClick(v: View): Boolean = fn
       })
       v
     }
