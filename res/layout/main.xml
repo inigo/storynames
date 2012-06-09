@@ -14,15 +14,45 @@
               android:text="Lorem Ipsum Transformius (something)" />
 
 
+    <RelativeLayout android:layout_width="fill_parent"
+                  android:gravity="bottom"
+                  android:layout_weight="1"
+                  android:layout_height="0dp">
+        <Spinner
+                android:id="@+id/spinner"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:entries="@array/culture_array"
+                />
+        <RadioGroup android:layout_height="wrap_content"
+                    android:layout_width="fill_parent"
+                    android:layout_below="@+id/spinner"
+                    android:orientation="horizontal"
+                    android:padding="10dp"
+                    android:id="@+id/gender"
+                >
+            <RadioButton
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_weight="1"
+                    android:id="@+id/male"
+                    android:checked="true"
+                    android:text="Male"/>
+            <RadioButton
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:id="@+id/female"
+                    android:text="Female"/>
+        </RadioGroup>
+        <Button android:id="@+id/create"
+                android:layout_below="@+id/gender"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Tell me a name!"
+                />
+    </RelativeLayout>
 
-    <Spinner
-            android:id="@+id/spinner"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:entries="@array/culture_array"
-            />
-
-    <LinearLayout android:layout_width="fill_parent"
+<!--    <LinearLayout android:layout_width="fill_parent"
                   android:gravity="bottom"
                   android:layout_weight="1"
                   android:layout_height="0dp">
@@ -36,5 +66,5 @@
                 android:layout_height="50dp"
                 android:text="Female"
                 />
-    </LinearLayout>
+    </LinearLayout>-->
 </LinearLayout>
