@@ -69,4 +69,9 @@ class GeneratorTest extends SpecificationWithJUnit {
     "have female names" in { Finnish.femaleName(rnd) must beEqualTo("Aili Kangas") }
   }
 
+  "Quna culture" should {
+    "have male names" in { Quna.maleName(rnd) must beEqualTo("Ñuqa")}
+    "have female names" in { Quna.femaleName(rnd) must beEqualTo("Aysay") }
+  }
+
 }
