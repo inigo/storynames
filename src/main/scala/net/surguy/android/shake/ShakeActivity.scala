@@ -11,9 +11,7 @@ import android.hardware.{Sensor, SensorManager}
  * Usage:
  *  Extend ShakeActivity in your activity.
  *  To the onCreate method, add:
- *    shakeListener = new ShakeEventListener(() => {
- *        // Do something
- *    })
+ *    shakeListener = createShakeListener( /* Do something */ )
  *
  * @author Based on StackOverflow answer by peceps - http://stackoverflow.com/a/5117254/544689
  * @author Inigo Surguy
@@ -26,6 +24,8 @@ trait ShakeActivity extends Activity {
     super.onCreate(savedInstanceState)
     sensorManager = getSystemService(Context.SENSOR_SERVICE).asInstanceOf[SensorManager]
   }
+
+  def createShakeListener(fn: => Unit) = new ShakeEventListener(() => fn )
 
   override def onResume() {
     super.onResume()

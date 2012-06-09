@@ -28,9 +28,7 @@ class MainActivity extends Activity with ShakeActivity {
     maleButton.setOnClickListener(new ClickListener(() => text.setText(currentCulture.maleName())))
     femaleButton.setOnClickListener(new ClickListener(() => text.setText(currentCulture.femaleName())))
 
-    shakeListener = new ShakeEventListener(() => {
-      text.setText(currentCulture.maleName())
-    })
+    shakeListener = createShakeListener( text.setText(currentCulture.maleName())  )
   }
 
   class ClickListener(val fn: () => Unit) extends View.OnClickListener {
