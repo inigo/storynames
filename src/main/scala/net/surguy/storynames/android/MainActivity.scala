@@ -34,15 +34,15 @@ class MainActivity extends Activity with ShakeActivity with RichViews {
     spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
       override def onItemSelected(parent: AdapterView[_], view: View, position: Int, id: Long) {
         val backgroundImage = spinner.getSelectedItem.toString
-        // @todo There must be a way of looking up these IDs based on name, without usng reflection
+        // @todo There must be a way of looking up these IDs based on name, without using reflection
         val imageId = backgroundImage match {
-          case "Roman" => R.drawable.roman
+          case "Roman" => R.drawable.roman2
           case "Celtic" => R.drawable.celtic
           case "Egyptian" => R.drawable.egyptian
           case _ => R.drawable.paper
         }
         backgroundImage match {
-          case "Roman" => setTextColor(Color.BLACK, Color.WHITE)
+          case "Roman" => setTextColor(Color.WHITE, Color.WHITE)
           case "Egyptian" => setTextColor(Color.BLACK, Color.BLACK)
           case "Celtic" => setTextColor(Color.WHITE, Color.WHITE)
           case _ => setTextColor(Color.BLACK, Color.BLACK)
