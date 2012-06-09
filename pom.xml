@@ -94,6 +94,7 @@
                     <target>1.6</target>
                 </configuration>
             </plugin>
+<!--
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -109,6 +110,7 @@
                     </execution>
                 </executions>
             </plugin>
+-->
 
             <plugin>
                 <groupId>org.scala-tools</groupId>
@@ -154,6 +156,7 @@
                 </configuration>
                 <extensions>true</extensions>
             </plugin>
+<!--
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -198,6 +201,7 @@
                     </dependency>
                 </dependencies>
             </plugin>
+-->
 
         </plugins>
     </build>
