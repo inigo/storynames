@@ -24,6 +24,8 @@ package net.surguy.android
  * aspect ratio, and scaling the outside edges to pad the content to fit appropriately (perhaps using seam carving, if that can be
  * done fast enough)
  *
+ * Galaxy Nexus images should by 720 x 1184 in portrait (720 x 1280 screen, 96px used by controls).
+ *
  * @todo There is no code here, just discussion
  *
  * @author Inigo Surguy
