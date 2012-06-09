@@ -39,12 +39,16 @@ class MainActivity extends Activity with ShakeActivity with RichViews {
           case "Roman" => R.drawable.roman2
           case "Celtic" => R.drawable.celtic
           case "Egyptian" => R.drawable.egyptian
+          case "Finnish" => R.drawable.finnish
+          case "Angels" => R.drawable.angel
           case _ => R.drawable.paper
         }
         backgroundImage match {
           case "Roman" => setTextColor(Color.WHITE, Color.WHITE)
           case "Egyptian" => setTextColor(Color.BLACK, Color.BLACK)
           case "Celtic" => setTextColor(Color.WHITE, Color.WHITE)
+          case "Finnish" => setTextColor(Color.BLACK, Color.BLACK)
+          case "Angels" => setTextColor(Color.BLACK, Color.WHITE)
           case _ => setTextColor(Color.BLACK, Color.BLACK)
         }
         findView[LinearLayout](R.id.background).setBackgroundResource(imageId)
