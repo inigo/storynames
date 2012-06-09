@@ -18,7 +18,7 @@ class Generator {
     }
 
     val cultureName = names(0).name
-    val mergedNames = names.groupBy( _.name.replaceAll("\\s+\\d+$","") )
+    val mergedNames = names.groupBy( _.name.replaceAll("\\s+\\d+\\s*$","") )
                                            .map{ case (k, v: Seq[Names]) => Names(k, v.map( _.items ).flatten )  }
     Culture(cultureName, mergedNames, rules)
   }
@@ -34,7 +34,8 @@ case class Culture(name: String, private val lists: Iterable[Names], private val
   def createName(nameType: String, randomizer:Random = rnd) =
     rules(nameType).actions.map( fn => fn.apply(this, randomizer) ).mkString(" ").trim
 
-  def nameComponent(listName: String, randomizer: Random) = lists.find( _.name.trim == listName ).get.randomName(randomizer)
+  def nameComponent(listName: String, randomizer: Random) = lists.find( _.name.trim == listName ).
+    getOrElse( sys.error("No such list name "+listName+" in "+lists.map( _.name.trim )) ).randomName(randomizer)
 }
 
 case class Names(name: String, items: Seq[String]) {
@@ -102,6 +103,16 @@ object Cultures {
       "female" -> Ruleset(List(oneOf(take("COMMON FEMALE"), take("LESS COMMON FEMALE"), take("UNUSUAL FEMALE"))) )
     ))
 
+  val Chinese = generator.readCulture("/chinese.txt",
+    Map("male" -> Ruleset(List(oneOf(take("COMMON SURNAMES"), take("COMPOUND SURNAMES")), take("MALE MANDARIN GIVEN NAMES"))),
+      "female" -> Ruleset(List(oneOf(take("COMMON SURNAMES"), take("COMPOUND SURNAMES")), take("FEMALE MANDARIN GIVEN NAMES")))
+    ))
+
+  val Finnish = generator.readCulture("/finnish.txt",
+    Map("male" -> Ruleset(List(take("MALE NAMES"), take("LAST NAMES"))),
+      "female" -> Ruleset(List(take("FEMALE NAMES"), take("LAST NAMES")))
+    ))
+
   def getCulture(s: String): Culture = {
     s match {
       case "Egyptian" => Egyptian
@@ -112,6 +123,8 @@ object Cultures {
       case "Biblical" => Biblical
       case "Elizabethan" => Elizabethan
       case "Celtic" => Celtic
+      case "Chinese" => Chinese
+      case "Finnish" => Finnish
       case _ => throw new IllegalArgumentException("No such culture")
     }
   }
