@@ -21,6 +21,8 @@ trait ViewHelpers extends Activity {
   def findSpinner(id: Int) = findViewById(id).asInstanceOf[Spinner]
   def findTextView(id: Int) = findViewById(id).asInstanceOf[TextView]
 
+  def findView[WidgetType](id : Int): WidgetType = findViewById(id).asInstanceOf[WidgetType]
+
   implicit def richView(v: View): RichView = new RichView(v)
 
   class RichView(v: View) {

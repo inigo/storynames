@@ -3,10 +3,7 @@ package net.surguy.storynames.android
 import android.app.Activity
 import android.os.Bundle
 import net.surguy.storynames.names.Cultures
-import android.view.View
-import android.widget.{Spinner, Button, TextView}
-import net.surguy.android.shake.{ShakeEventListener, ShakeActivity}
-import android.view.View.OnClickListener
+import net.surguy.android.shake.ShakeActivity
 import net.surguy.android.ViewHelpers
 
 /**
