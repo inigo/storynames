@@ -4,6 +4,7 @@ project/boot
 project/build/target
 *.swp
 *~
+out
 
 # IDEA configuration
 *.iml
@@ -18,3 +19,5 @@ project/build/target
 
 # Other source control
 .svn
+
+original_images
