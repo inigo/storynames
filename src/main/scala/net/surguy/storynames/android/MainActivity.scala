@@ -4,11 +4,12 @@ import android.app.Activity
 import android.os.Bundle
 import net.surguy.storynames.names.Cultures
 import net.surguy.android.shake.ShakeActivity
-import net.surguy.android.RichViews
 import android.widget.AdapterView.OnItemSelectedListener
 import android.view.View
-import android.graphics.Color
 import android.widget.{RadioButton, LinearLayout, AdapterView, RadioGroup}
+import android.graphics.{BitmapFactory, Color}
+import android.graphics.drawable.BitmapDrawable
+import net.surguy.android.{ImageResizer, RichViews}
 
 /**
  * Main activity for the app - displays names and allows culture selection.
@@ -59,7 +60,19 @@ class MainActivity extends Activity with ShakeActivity with RichViews {
           case "Elizabethan" => setTextColor(Color.WHITE, Color.WHITE)
           case _ => setTextColor(Color.BLACK, Color.BLACK)
         }
-        findView[LinearLayout](R.id.background).setBackgroundResource(imageId)
+
+        val bitmap = BitmapFactory.decodeStream(this.getClass.getResourceAsStream("/res/drawable/"+backgroundImage.toLowerCase+".jpg"))
+        val display = getWindowManager.getDefaultDisplay
+        val newWidth = display.getWidth
+        val newHeight = display.getHeight
+
+        val resizedBitmap = new ImageResizer().resizeImage(bitmap, newWidth, newHeight)
+        val bitmapDrawable = new BitmapDrawable(resizedBitmap)
+        findView[LinearLayout](R.id.background).setBackgroundDrawable(bitmapDrawable)
+
+//        findView[LinearLayout](R.id.background).setBackgroundResource(imageId)
+
+
         text.setText(createName())
       }
       override def onNothingSelected(parent: AdapterView[_]) {}
