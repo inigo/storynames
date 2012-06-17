@@ -5,6 +5,7 @@ project/build/target
 *.swp
 *~
 out
+proguard_logs
 
 # IDEA configuration
 *.iml
