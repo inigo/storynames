@@ -10,7 +10,6 @@ import android.widget.{RadioButton, LinearLayout, AdapterView, RadioGroup}
 import android.graphics.{BitmapFactory, Color}
 import android.graphics.drawable.BitmapDrawable
 import net.surguy.android.{ImageResizer, RichViews}
-import android.util.Log
 
 /**
  * Main activity for the app - displays names and allows culture selection.
@@ -49,13 +48,15 @@ class MainActivity extends Activity with ShakeActivity with RichViews {
           case _ => setTextColor(Color.BLACK, Color.BLACK)
         }
 
-        var bg = this.getClass.getResourceAsStream("/res/drawable/" + backgroundImage.toLowerCase + ".jpg")
-        if (bg==null) bg = this.getClass.getResourceAsStream("/res/drawable/paper.jpg")
-        val bitmap = BitmapFactory.decodeStream(bg)
         val display = getWindowManager.getDefaultDisplay
         val newWidth = display.getWidth
         val newHeight = display.getHeight
 
+        var bg = if (newWidth > newHeight) this.getClass.getResourceAsStream("/res/drawable/" + backgroundImage.toLowerCase + "_landscape.jpg") else null
+        if (bg==null) bg = this.getClass.getResourceAsStream("/res/drawable/" + backgroundImage.toLowerCase + ".jpg")
+        if (bg==null) bg = this.getClass.getResourceAsStream("/res/drawable/paper.jpg")
+
+        val bitmap = BitmapFactory.decodeStream(bg)
         val resizedBitmap = new ImageResizer().resizeImage(bitmap, newWidth, newHeight)
         val bitmapDrawable = new BitmapDrawable(resizedBitmap)
         findView[LinearLayout](R.id.background).setBackgroundDrawable(bitmapDrawable)
