@@ -1,6 +1,7 @@
 package net.surguy.android
 
 import android.graphics.{Canvas, BitmapFactory, Bitmap}
+import android.util.Log
 
 
 /**
@@ -32,31 +33,33 @@ import android.graphics.{Canvas, BitmapFactory, Bitmap}
  * @author Inigo Surguy
  */
 class ImageResizer {
-
   def resizeImage(bmp: Bitmap, newWidth: Int, newHeight: Int, marginPercent: Float = 0.1F): Bitmap = {
     val originalWidth = bmp.getWidth
     val originalHeight = bmp.getHeight
-    if (newWidth >= originalWidth && newHeight >= originalHeight) return bmp
 
     val xMargin: Int = (originalWidth * marginPercent).toInt
     val yMargin: Int = (originalHeight * marginPercent).toInt
 
+    val originalMiddleWidth: Int = originalWidth - (xMargin * 2)
+    val originalMiddleHeight: Int = originalHeight - (yMargin * 2)
+
     // Split into 9 separate pieces, using the specified margin size
     var topLeft = Bitmap.createBitmap(bmp, 0, 0, xMargin, yMargin)
-    var topMiddle = Bitmap.createBitmap(bmp, xMargin, 0, originalWidth - (xMargin*2), yMargin)
+    var topMiddle = Bitmap.createBitmap(bmp, xMargin, 0, originalMiddleWidth, yMargin)
     var topRight = Bitmap.createBitmap(bmp, originalWidth - xMargin, 0, xMargin, yMargin)
-    var middleLeft = Bitmap.createBitmap(bmp, 0, yMargin, xMargin, originalHeight - (yMargin*2))
-    var middleMiddle = Bitmap.createBitmap(bmp, xMargin, yMargin, originalWidth - (xMargin*2), originalHeight - (yMargin*2))
-    var middleRight = Bitmap.createBitmap(bmp, originalWidth - xMargin, yMargin, xMargin, originalHeight - (yMargin*2))
+    var middleLeft = Bitmap.createBitmap(bmp, 0, yMargin, xMargin, originalMiddleHeight)
+    var middleMiddle = Bitmap.createBitmap(bmp, xMargin, yMargin, originalMiddleWidth, originalMiddleHeight)
+    var middleRight = Bitmap.createBitmap(bmp, originalWidth - xMargin, yMargin, xMargin, originalMiddleHeight)
     var bottomLeft = Bitmap.createBitmap(bmp, 0, originalHeight - yMargin, xMargin, yMargin)
-    var bottomMiddle = Bitmap.createBitmap(bmp, xMargin, originalHeight - yMargin, originalWidth - (xMargin*2), yMargin)
+    var bottomMiddle = Bitmap.createBitmap(bmp, xMargin, originalHeight - yMargin, originalMiddleWidth, yMargin)
     var bottomRight = Bitmap.createBitmap(bmp, originalWidth - xMargin, originalHeight - yMargin, xMargin, yMargin)
 
-    // Resize the pieces, leaving the middle more-or-less the same size
-    val newMiddleWidth: Int = math.max( ((newWidth - originalWidth) * 0.10F) + originalWidth, originalWidth ).toInt
-    val newMiddleHeight: Int = math.max( ((newHeight - originalHeight) * 0.10F) + originalHeight, originalHeight ).toInt
-    val newXMargin: Int = ((newWidth - newMiddleWidth) / 2).toInt
-    val newYMargin: Int = ((newHeight - newMiddleHeight) / 2).toInt
+    // Resize the pieces, leaving the middle the same size. Minimum size is 1, because bitmaps cannot be size 0
+    val newXMargin: Int = math.max( if (newWidth>originalWidth) ((newWidth - originalMiddleWidth) / 2) else 1, 1)
+    val newYMargin: Int = math.max( if (newHeight>originalHeight) ((newHeight - originalMiddleHeight) / 2) else 1, 1)
+    val newMiddleWidth: Int = newWidth - (newXMargin*2)
+    val newMiddleHeight: Int = newHeight - (newYMargin*2)
+
     topLeft = Bitmap.createScaledBitmap(topLeft, newXMargin, newYMargin, false)
     topMiddle = Bitmap.createScaledBitmap(topMiddle, newMiddleWidth, newYMargin, false)
     topRight = Bitmap.createScaledBitmap(topRight, newXMargin, newYMargin, false)
