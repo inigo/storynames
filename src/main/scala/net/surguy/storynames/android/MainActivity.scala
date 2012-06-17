@@ -10,6 +10,7 @@ import android.widget.{RadioButton, LinearLayout, AdapterView, RadioGroup}
 import android.graphics.{BitmapFactory, Color}
 import android.graphics.drawable.BitmapDrawable
 import net.surguy.android.{ImageResizer, RichViews}
+import android.util.Log
 
 /**
  * Main activity for the app - displays names and allows culture selection.
@@ -35,33 +36,22 @@ class MainActivity extends Activity with ShakeActivity with RichViews {
     spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
       override def onItemSelected(parent: AdapterView[_], view: View, position: Int, id: Long) {
         val backgroundImage = spinner.getSelectedItem.toString
-        // @todo There must be a way of looking up these IDs based on name, without using reflection
-        val imageId = backgroundImage match {
-          case "Roman" => R.drawable.roman2
-          case "Celtic" => R.drawable.celtic
-          case "Egyptian" => R.drawable.egyptian
-          case "Finnish" => R.drawable.finnish
-          case "Angels" => R.drawable.angel
-          case "Biblical" => R.drawable.biblical
-          case "Russian" => R.drawable.russian
-          case "Victorian" => R.drawable.victorian
-          case "Elizabethan" => R.drawable.elizabethan
-          case _ => R.drawable.paper
-        }
         backgroundImage match {
-          case "Roman" => setTextColor(Color.WHITE, Color.WHITE)
-          case "Egyptian" => setTextColor(Color.BLACK, Color.BLACK)
-          case "Celtic" => setTextColor(Color.WHITE, Color.WHITE)
-          case "Finnish" => setTextColor(Color.BLACK, Color.BLACK)
           case "Angels" => setTextColor(Color.BLACK, Color.WHITE)
           case "Biblical" => setTextColor(Color.BLACK, Color.WHITE)
-          case "Russian" => setTextColor(Color.WHITE, Color.WHITE)
-          case "Victorian" => setTextColor(Color.BLACK, Color.BLACK)
+          case "Celtic" => setTextColor(Color.WHITE, Color.WHITE)
+          case "Egyptian" => setTextColor(Color.BLACK, Color.BLACK)
           case "Elizabethan" => setTextColor(Color.WHITE, Color.WHITE)
+          case "Finnish" => setTextColor(Color.BLACK, Color.BLACK)
+          case "Roman" => setTextColor(Color.WHITE, Color.WHITE)
+          case "Russian" => setTextColor(Color.WHITE, Color.WHITE)
+          case "Victorian" => setTextColor(Color.BLACK, Color.WHITE)
           case _ => setTextColor(Color.BLACK, Color.BLACK)
         }
 
-        val bitmap = BitmapFactory.decodeStream(this.getClass.getResourceAsStream("/res/drawable/"+backgroundImage.toLowerCase+".jpg"))
+        var bg = this.getClass.getResourceAsStream("/res/drawable/" + backgroundImage.toLowerCase + ".jpg")
+        if (bg==null) bg = this.getClass.getResourceAsStream("/res/drawable/paper.jpg")
+        val bitmap = BitmapFactory.decodeStream(bg)
         val display = getWindowManager.getDefaultDisplay
         val newWidth = display.getWidth
         val newHeight = display.getHeight
@@ -69,9 +59,6 @@ class MainActivity extends Activity with ShakeActivity with RichViews {
         val resizedBitmap = new ImageResizer().resizeImage(bitmap, newWidth, newHeight)
         val bitmapDrawable = new BitmapDrawable(resizedBitmap)
         findView[LinearLayout](R.id.background).setBackgroundDrawable(bitmapDrawable)
-
-//        findView[LinearLayout](R.id.background).setBackgroundResource(imageId)
-
 
         text.setText(createName())
       }

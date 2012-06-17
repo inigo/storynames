@@ -14,11 +14,11 @@ class ImageResizerTest extends TestCase {
 
   @Test
   def testThings() {
-    val bitmap = BitmapFactory.decodeStream(this.getClass.getResourceAsStream("/res/drawable/celtic.jpg"))
+    /*val bitmap = BitmapFactory.decodeStream(this.getClass.getResourceAsStream("/res/drawable/celtic.jpg"))
     val newBitmap = new ImageResizer().resizeImage(bitmap, 1184, 720)
     val out = new FileOutputStream("out.jpg")
     newBitmap.compress(CompressFormat.JPEG, 80, out)
-    out.close()
+    out.close()*/
   }
 
 
