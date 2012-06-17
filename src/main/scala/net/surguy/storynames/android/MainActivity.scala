@@ -18,61 +18,53 @@ import net.surguy.android.{ImageResizer, RichViews}
  */
 class MainActivity extends Activity with ShakeActivity with RichViews {
 
+  var lastGenderWasMale = true
+
   override def onCreate(savedInstanceState: Bundle) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.main)
+    lastGenderWasMale = math.random >= 0.5
 
     val text = findTextView(R.id.text)
-    text.setText("Press button or shake")
 
     val spinner = findSpinner(R.id.spinner)
-    def currentCulture = Cultures.getCulture(spinner.getSelectedItem.toString)
-    def currentGender = findView[RadioGroup](R.id.gender).getCheckedRadioButtonId
+    def cultureName = spinner.getSelectedItem.toString
+    def currentCulture = Cultures.getCulture(cultureName)
     def createName(): String = {
-      if (currentGender==R.id.male) currentCulture.maleName() else currentCulture.femaleName()
+      if (lastGenderWasMale) currentCulture.maleName() else currentCulture.femaleName()
     }
 
     spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
       override def onItemSelected(parent: AdapterView[_], view: View, position: Int, id: Long) {
-        val backgroundImage = spinner.getSelectedItem.toString
-        backgroundImage match {
-          case "Angels" => setTextColor(Color.BLACK, Color.WHITE)
-          case "Biblical" => setTextColor(Color.BLACK, Color.WHITE)
-          case "Celtic" => setTextColor(Color.WHITE, Color.WHITE)
-          case "Egyptian" => setTextColor(Color.BLACK, Color.BLACK)
-          case "Elizabethan" => setTextColor(Color.WHITE, Color.WHITE)
-          case "Finnish" => setTextColor(Color.BLACK, Color.BLACK)
-          case "Roman" => setTextColor(Color.WHITE, Color.WHITE)
-          case "Russian" => setTextColor(Color.WHITE, Color.WHITE)
-          case "Victorian" => setTextColor(Color.BLACK, Color.WHITE)
-          case _ => setTextColor(Color.BLACK, Color.BLACK)
+        val textColor = cultureName match {
+          case "Celtic" => Color.WHITE
+          case "Elizabethan" => Color.WHITE
+          case "Roman" => Color.WHITE
+          case "Russian" => Color.WHITE
+          case _ => Color.BLACK
         }
+        text.setTextColor(textColor)
 
         val display = getWindowManager.getDefaultDisplay
         val newWidth = display.getWidth
         val newHeight = display.getHeight
 
-        var bg = if (newWidth > newHeight) this.getClass.getResourceAsStream("/res/drawable/" + backgroundImage.toLowerCase + "_landscape.jpg") else null
-        if (bg==null) bg = this.getClass.getResourceAsStream("/res/drawable/" + backgroundImage.toLowerCase + ".jpg")
+        var bg = if (newWidth > newHeight) this.getClass.getResourceAsStream("/res/drawable/" + cultureName.toLowerCase + "_landscape.jpg") else null
+        if (bg==null) bg = this.getClass.getResourceAsStream("/res/drawable/" + cultureName.toLowerCase + ".jpg")
         if (bg==null) bg = this.getClass.getResourceAsStream("/res/drawable/paper.jpg")
 
         val bitmap = BitmapFactory.decodeStream(bg)
         val resizedBitmap = new ImageResizer().resizeImage(bitmap, newWidth, newHeight)
-        val bitmapDrawable = new BitmapDrawable(resizedBitmap)
+        val bitmapDrawable = new BitmapDrawable(getResources, resizedBitmap)
         findView[LinearLayout](R.id.background).setBackgroundDrawable(bitmapDrawable)
 
         text.setText(createName())
       }
       override def onNothingSelected(parent: AdapterView[_]) {}
     })
-    findButton(R.id.create).onClick{ text.setText(createName()) }
-    shakeListener = createShakeListener( text.setText(createName())  )
-  }
-
-  def setTextColor(top: Int, bottom: Int) {
-    findTextView(R.id.text).setTextColor(top)
-    findView[RadioButton](R.id.male).setTextColor(bottom)
-    findView[RadioButton](R.id.female).setTextColor(bottom)
+    findButton(R.id.male).onClick{ text.setText(currentCulture.maleName()); lastGenderWasMale = true }
+    findButton(R.id.female).onClick{ text.setText(currentCulture.femaleName()); lastGenderWasMale = false }
+    shakeListener = createShakeListener( text.setText(createName()) )
   }
 
 }
