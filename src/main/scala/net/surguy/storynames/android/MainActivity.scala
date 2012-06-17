@@ -6,19 +6,20 @@ import net.surguy.storynames.names.Cultures
 import net.surguy.android.shake.ShakeActivity
 import android.widget.AdapterView.OnItemSelectedListener
 import android.view.View
-import android.widget.{RadioButton, LinearLayout, AdapterView, RadioGroup}
+import android.widget.{LinearLayout, AdapterView}
 import android.graphics.{BitmapFactory, Color}
 import android.graphics.drawable.BitmapDrawable
-import net.surguy.android.{ImageResizer, RichViews}
+import net.surguy.android.{Logging, ImageResizer, RichViews}
 
 /**
  * Main activity for the app - displays names and allows culture selection.
  *
  * @author Inigo Surguy
  */
-class MainActivity extends Activity with ShakeActivity with RichViews {
+class MainActivity extends Activity with ShakeActivity with RichViews with Logging {
 
   var lastGenderWasMale = true
+  var previousCultureName = ""
 
   override def onCreate(savedInstanceState: Bundle) {
     super.onCreate(savedInstanceState)
@@ -58,13 +59,33 @@ class MainActivity extends Activity with ShakeActivity with RichViews {
         val bitmapDrawable = new BitmapDrawable(getResources, resizedBitmap)
         findView[LinearLayout](R.id.background).setBackgroundDrawable(bitmapDrawable)
 
-        text.setText(createName())
+        if (previousCultureName!=cultureName) {
+          text.setText(createName())
+        }
+
+        previousCultureName = cultureName
       }
       override def onNothingSelected(parent: AdapterView[_]) {}
     })
     findButton(R.id.male).onClick{ text.setText(currentCulture.maleName()); lastGenderWasMale = true }
     findButton(R.id.female).onClick{ text.setText(currentCulture.femaleName()); lastGenderWasMale = false }
     shakeListener = createShakeListener( text.setText(createName()) )
+  }
+
+  override def onSaveInstanceState(outState: Bundle) {
+    super.onSaveInstanceState(outState)
+    outState.putString("currentName", findTextView(R.id.text).getText.toString)
+    outState.putString("previousCultureName", previousCultureName)
+    outState.putBoolean("lastGenderWasMale", lastGenderWasMale)
+    debug("Saving name as "+findTextView(R.id.text).getText.toString)
+  }
+
+  override def onRestoreInstanceState(savedState: Bundle) {
+    super.onRestoreInstanceState(savedState)
+    debug("Restoring name "+savedState.getString("currentName"))
+    findTextView(R.id.text).setText(savedState.getString("currentName"))
+    lastGenderWasMale = savedState.getBoolean("lastGenderWasMale")
+    previousCultureName = savedState.getString("previousCultureName")
   }
 
 }
