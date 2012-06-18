@@ -4,8 +4,8 @@
 
     <string name="about_title">About StoryNames</string>
     <string name="about">
-StoryNames is based on the names collected by The Story Games Names Project,
-from the Story Games forum.\n\n
+StoryNames is based on the names compiled by The Story Games Names Project,
+from the <a href="http://www.story-games.com/forums/">Story Games</a> forum.\n\n
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -18,10 +18,9 @@ Source code and full license text are available at
 <a href="https://github.com/inigo/storynames/">https://github.com/inigo/storynames/</a>\n\n
 Inigo Surguy, 2012\n\n
 <b>Names</b>\n
-The names from the Story Games Names Project are copyrighted to their
-respective authors and used under the Creative Commons
-Attribution-NonCommercial-ShareAlike 2.5 Generic License (see
-http://creativecommons.org/licenses/by-nc-sa/2.5/)\n\n
+The name collections from the Story Games Names Project are copyrighted by their
+respective authors and used under the <a href="http://creativecommons.org/licenses/by-nc-sa/2.5/">Creative Commons
+Attribution-NonCommercial-ShareAlike 2.5 Generic License</a>\n\n
 Angels: Shreyas Sampat\n\n
 Biblical: Meguey Baker\n\n
 Celtic: Mischa D. Krilov\n\n
@@ -34,16 +33,18 @@ Roman: Jessica Hammer\n\n
 Russian: James Holloway and Eric Provost\n\n
 Victorian: Graham Walmsley\n\n
 <b>Images</b>\n\n
-Angels: from http://www.flickr.com/photos/piper/38374115/ by Julie Falk - Creative Commons BY-NC\n\n
-Biblical: from http://www.flickr.com/photos/trebecca84/5426891128/ by Rebecca Weaver - Creative Commons BY-NC-SA\n\n
-Celtic: from http://www.flickr.com/photos/raiadiff/2776934527/ by Andrea Raia - Creative Commons BY-NC-SA\n\n
-Elizabethan: from http://www.flickr.com/photos/60861613@N00/3407771659/ by Lisby - Creative Commons BY-NC-SA\n\n
-Egyptian: from http://www.flickr.com/photos/hackerfriendly/3535924398/ by Rob Flickenger - Creative Commons BY-SA\n\n
-Finnish: Akseli Gallen-Kallela "Talvimaisema", 1900 (out of copyright)\n\n
-Roman: from http://www.flickr.com/photos/mohansa/2286341651/ by &lt;&lt;TheOne&gt;&gt; - Creative Commons BY-NC-SA\n\n
-Russian: Ivan Bilibin "Vassilisa the Beautiful", 1899 (out of copyright)\n\n
-Victorian: from http://www.flickr.com/photos/lac-bac/7070778093/ by Library and Archives Canada - Creative Commons BY\n\n
-Default: from http://www.flickr.com/photos/photoshoproadmap/3369360866/ by Enrique Floret - Creative Commons BY
+The images have a variety of Creative Commons licenses - see <a href="http://creativecommons.org/licenses/">the
+Creative Commons site</a> for descriptions of each.
+Angels: <a href="http://www.flickr.com/photos/piper/38374115/">Julie Falk</a> - CC BY-NC\n\n
+Biblical: <a href="http://www.flickr.com/photos/trebecca84/5426891128/">Rebecca Weaver</a> - CC BY-NC-SA\n\n
+Celtic: <a href="http://www.flickr.com/photos/raiadiff/2776934527/">Andrea Raia</a> - CC BY-NC-SA\n\n
+Elizabethan: <a href="http://www.flickr.com/photos/60861613@N00/3407771659/">Lisby</a> - CC BY-NC-SA\n\n
+Egyptian: <a href="http://www.flickr.com/photos/hackerfriendly/3535924398/">Rob Flickenger</a> - CC BY-SA\n\n
+Finnish: Akseli Gallen-Kallela \"Talvimaisema\", 1900 - out of copyright\n\n
+Roman: <a href="http://www.flickr.com/photos/mohansa/2286341651/">&lt;&lt;TheOne&gt;&gt;</a> - CC BY-NC-SA\n\n
+Russian: Ivan Bilibin \"Vassilisa the Beautiful\", 1899 - out of copyright\n\n
+Victorian: <a href="http://www.flickr.com/photos/lac-bac/7070778093/">Library and Archives Canada</a> - CC BY\n\n
+Default: <a href="http://www.flickr.com/photos/photoshoproadmap/3369360866/">Enrique Floret</a> - CC BY\n\n
 </string>
 
     <string-array name="culture_array">
