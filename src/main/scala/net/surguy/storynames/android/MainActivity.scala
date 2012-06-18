@@ -5,11 +5,12 @@ import android.os.Bundle
 import net.surguy.storynames.names.Cultures
 import net.surguy.android.shake.ShakeActivity
 import android.widget.AdapterView.OnItemSelectedListener
-import android.view.View
-import android.widget.{LinearLayout, AdapterView}
+import android.view.{MenuItem, Menu, View}
+import android.widget.{Toast, LinearLayout, AdapterView}
 import android.graphics.{BitmapFactory, Color}
 import android.graphics.drawable.BitmapDrawable
 import net.surguy.android.{Logging, ImageResizer, RichViews}
+import android.content.Intent
 
 /**
  * Main activity for the app - displays names and allows culture selection.
@@ -70,6 +71,23 @@ class MainActivity extends Activity with ShakeActivity with RichViews with Loggi
     findButton(R.id.male).onClick{ text.setText(currentCulture.maleName()); lastGenderWasMale = true }
     findButton(R.id.female).onClick{ text.setText(currentCulture.femaleName()); lastGenderWasMale = false }
     shakeListener = createShakeListener( text.setText(createName()) )
+  }
+
+  override def onCreateOptionsMenu(menu: Menu) = {
+    getMenuInflater.inflate(R.menu.menu, menu)
+    true
+  }
+
+  override def onOptionsItemSelected(item: MenuItem) = {
+    // Should be possible to replace this with an onClick reference in the menu.xml to showAbout... but this doesn't seem to work in Scala?
+    item.getItemId match {
+      case R.id.about => showAbout(item)
+    }
+    true
+  }
+
+  def showAbout(item: MenuItem) {
+    startActivity(new Intent(this, classOf[AboutActivity]))
   }
 
   override def onSaveInstanceState(outState: Bundle) {
