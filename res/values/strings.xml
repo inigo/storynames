@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">StoryNames</string>
+    <string name="app_name">StoryNames Beta</string>
 
     <string name="about_title">About StoryNames</string>
     <string name="about">
@@ -50,17 +50,17 @@ Default: <a href="http://www.flickr.com/photos/photoshoproadmap/3369360866/">Enr
 </string>
 
     <string-array name="culture_array">
-        <item>Roman</item>
-        <item>Egyptian</item>
-        <item>Victorian</item>
-        <item>Celtic</item>
-        <item>Elizabethan</item>
-        <item>Biblical</item>
         <item>Angels</item>
-        <item>Russian</item>
+        <item>Biblical</item>
+        <item>Celtic</item>
         <item>Chinese</item>
+        <item>Egyptian</item>
+        <item>Elizabethan</item>
         <item>Finnish</item>
         <item>Quechua</item>
+        <item>Roman</item>
+        <item>Russian</item>
+        <item>Victorian</item>
     </string-array>
 
 </resources>
