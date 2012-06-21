@@ -97,65 +97,63 @@ FEMALE 2
 
 
 ANCIENT MALE 1
-1. Menetnasht�
-2. Anok Sab�
+1. Menetnashté
+2. Anok Sabé
 3. Buikhu
-4. H�tshepsu
+4. Hétshepsu
 5. Mkalbuti
-6. Fant�
+6. Fanté
 7. Mdjai
 8. Kamenwati
 9. Wakhakwi
-10. Nif�-en-Ankh
+10. Nifé-en-Ankh
 11. Mtidja
 12. Wakhashem
-13. Benip�
+13. Benipé
 14. Semni
 15. Udjai
 16. Kemosiri
 17. Nebibi
 18. Suten Hamu
 19. Alu
-20. Itaf�
+20. Itafé
 ANCIENT FEMALE 1
 1. DjaDja 
-2. Betuk�
+2. Betuké
 3. Afrikaisi
 4. Djabenusiri
 5. Kemreit
-6. Ekib�
-7. H�tshepsit
+6. Ekibé
+7. Hétshepsit
 8. Nubiti
 9. Boki
 10. Hebony
 11. Irisi
-12. Amenitr�
+12. Amenitré
 13. Mehnit
-14. S�shafi
+14. Séshafi
 15. Mkitiris
-16. Emuish�r�
+16. Emuishéré
 17. Woserit
 18. Kebi
 19. Djeserit
-20. Nafr�
-
-
+20. Nafré
 
 ANCIENT MALE 2
-1. Amaht�
+1. Amahté
 2. Djadao
-3. Ursh�
+3. Urshé
 4. Suten Anu
 5. Sokkwi
 6. Baraka
 7. Shushu
 8. Muntuhotep
 9. Kahotep
-10. Sinuh�
+10. Sinuhé
 11. Panahasi
-12. Top Betuk�
+12. Top Betuké
 13. Adjo
-14. Ibenr�
+14. Ibenré
 15. Khenti
 16. Anhuri
 17. Kemnebi
@@ -166,20 +164,20 @@ ANCIENT MALE 2
 ANCIENT FEMALE 2
 1. Meskenit
 2. Paniwi
-3. Kems�
+3. Kemsé
 4. Kepi
-5. Shamis�
+5. Shamisé
 6. Mnoti
 7. Tinubiti
 8. Banafrit
-9. Suten Him�
+9. Suten Himé
 10. Shai-nefer
 11. Kemamonit
 12. Kemisi
 13. Tiankhit
 14. AnkhesenAmen
-15. Har�r�
-16. Shantefeir�
+15. Haréré
+16. Shantefeiré
 17. Tanafriti
 18. Oshairana
 19. Kiwu
