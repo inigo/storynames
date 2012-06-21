@@ -43,6 +43,8 @@ class MainActivity extends Activity with ShakeActivity with RichViews with Loggi
           case "Elizabethan" => Color.WHITE
           case "Roman" => Color.WHITE
           case "Russian" => Color.WHITE
+          case "Chinese" => Color.WHITE
+          case "Quechua" => Color.WHITE
           case _ => Color.BLACK
         }
         text.setTextColor(textColor)

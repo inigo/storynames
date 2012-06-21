@@ -70,8 +70,8 @@ class GeneratorTest extends SpecificationWithJUnit {
   }
 
   "Quna culture" should {
-    "have male names" in { Quna.maleName(rnd) must beEqualTo("Ñuqa")}
-    "have female names" in { Quna.femaleName(rnd) must beEqualTo("Aysay") }
+    "have male names" in { Quechua.maleName(rnd) must beEqualTo("Ñuqa")}
+    "have female names" in { Quechua.femaleName(rnd) must beEqualTo("Aysay") }
   }
 
 }

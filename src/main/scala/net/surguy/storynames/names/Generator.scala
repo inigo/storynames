@@ -113,7 +113,7 @@ object Cultures {
       "female" -> Ruleset(List(take("FEMALE NAMES"), take("LAST NAMES")))
     ))
 
-  val Quna = generator.readCulture("/quna.txt",
+  val Quechua = generator.readCulture("/quechua.txt",
     Map("male" -> Ruleset(List(take("MALE"))),
       "female" -> Ruleset(List(take("FEMALE")))
     ))
@@ -130,7 +130,7 @@ object Cultures {
       case "Celtic" => Celtic
       case "Chinese" => Chinese
       case "Finnish" => Finnish
-      case "Quna" => Quna
+      case "Quechua" => Quechua
       case _ => throw new IllegalArgumentException("No such culture")
     }
   }
