@@ -48,7 +48,7 @@ object Ruleset {
   type Rule = (Culture, Random) => String
 
   def take(listName: String) = (c: Culture, random: Random) => c.nameComponent(listName, random)
-  def feminize(rule: Ruleset.Rule) = (c: Culture, random: Random) => rule(c, random).replaceAll("ius$","ia")
+  def feminize(rule: Ruleset.Rule) = (c: Culture, random: Random) => rule(c, random).replaceAll("ius\\b","ia").replaceAll("(\\w{2,})us\\b", "$1a")
   def optional(rule: Ruleset.Rule, percent: Float = 0.5F) =
     (c: Culture, random: Random) => if (random.nextFloat() < percent) rule(c, random) else ""
   def suffix(rule: Ruleset.Rule, suffix: String) =
@@ -79,7 +79,7 @@ object Cultures {
 
   val Roman = generator.readCulture("/roman.txt",
     Map("male" -> Ruleset(List(take("PRAENOMEN LIST"),take("NOMEN LIST"),take("COGNOMEN LIST"))),
-      "female" -> Ruleset(List(feminize(take("NOMEN LIST")),optional(take("COGNOMEN LIST")) )) ) )
+      "female" -> Ruleset(List(feminize(take("NOMEN LIST")),optional(feminize(take("COGNOMEN LIST"))) )) ) )
 
   val Egyptian = generator.readCulture("/fantasy_egyptian.txt",
     Map("male" -> Ruleset(List(take("ANCIENT MALE"))),
