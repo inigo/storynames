@@ -90,7 +90,7 @@ object Cultures {
 
   val Angels = generator.readCulture("/angels_and_demons.txt",
     Map("male" -> Ruleset(List(suffix(take("MASCULINE NAMES"),","), take("TITLES OF ANGELS"))),
-      "female" -> Ruleset(List(suffix(take("FEMININE NAMES"),","), take("TITLES OF ANGELS")))
+      "female" -> Ruleset(List(suffix(take("FEMININE NAMES"),","), take("TITLES OF FEMININE ANGELS")))
     ))
 
   val Russian = generator.readCulture("/russian.txt",
