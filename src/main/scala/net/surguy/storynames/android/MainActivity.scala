@@ -58,8 +58,9 @@ class MainActivity extends Activity with ShakeActivity with RichViews with Loggi
         if (bg==null) bg = this.getClass.getResourceAsStream("/res/drawable/paper.jpg")
 
         val bitmap = BitmapFactory.decodeStream(bg)
-        val resizedBitmap = new ImageResizer().resizeImage(bitmap, newWidth, newHeight)
-        val bitmapDrawable = new BitmapDrawable(getResources, resizedBitmap)
+        // val resizedBitmap = new ImageResizer().resizeImage(bitmap, newWidth, newHeight)
+//        val bitmapDrawable = new BitmapDrawable(getResources, resizedBitmap)
+        val bitmapDrawable = new BitmapDrawable(getResources, bitmap)
         findView[LinearLayout](R.id.background).setBackgroundDrawable(bitmapDrawable)
 
         if (previousCultureName!=cultureName) {
