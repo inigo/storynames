@@ -30,6 +30,7 @@ class MainActivity extends Activity with ShakeActivity with RichViews with Loggi
     val text = findTextView(R.id.text)
 
     val spinner = findSpinner(R.id.spinner)
+    spinner.setSelection(8) // Default to "Roman"
     def cultureName = spinner.getSelectedItem.toString
     def currentCulture = Cultures.getCulture(cultureName)
     def createName(): String = {
