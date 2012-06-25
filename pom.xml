@@ -10,6 +10,10 @@
     <url>https://github.com/inigo/storynames</url>
     <packaging>apk</packaging>
 
+    <prerequisites>
+        <maven>3.0.0</maven>
+    </prerequisites>
+
     <properties>
         <encoding>UTF-8</encoding>
         <scala.version>2.9.2</scala.version>
