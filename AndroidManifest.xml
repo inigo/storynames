@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="net.surguy.storynames.android" android:versionCode="1"
     android:versionName="1.0">
-    <uses-sdk android:minSdkVersion="14" />
+    <uses-sdk android:minSdkVersion="8" android:targetSdkVersion="14" />
     <supports-screens
             android:largeScreens="true"
             android:normalScreens="true"
