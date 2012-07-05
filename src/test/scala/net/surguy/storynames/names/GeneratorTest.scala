@@ -75,4 +75,67 @@ class GeneratorTest extends SpecificationWithJUnit {
     "have female names" in { Quechua.femaleName(rnd) must beEqualTo("Aysay") }
   }
 
+  "English culture" should {
+    "have male names" in { English.maleName(rnd) must beEqualTo("Alexander Thomas")}
+    "have female names" in { English.femaleName(rnd) must beEqualTo("Alice Thomas") }
+  }
+
+  "Scottish culture" should {
+    "have male names" in { Scottish.maleName(rnd) must beEqualTo("John Robertson")}
+    "have female names" in { Scottish.femaleName(rnd) must beEqualTo("Mary Robertson") }
+  }
+
+  "Welsh culture" should {
+    "have male names" in { Welsh.maleName(rnd) must beEqualTo("Andrew Harris")}
+    "have female names" in { Welsh.femaleName(rnd) must beEqualTo("Charlotte Harris") }
+  }
+
+  "Thai culture" should {
+    "have male names" in { Thai.maleName(rnd) must beEqualTo("Anand Wongsa")}
+    "have female names" in { Thai.femaleName(rnd) must beEqualTo("Rasamee Wongsa") }
+  }
+
+  "Sicilian culture" should {
+    "have male names" in { Sicilian.maleName(rnd) must beEqualTo("Salvatore (Totò) Lucido")}
+    "have female names" in { Sicilian.femaleName(rnd) must beEqualTo("Liliana Lucido") }
+  }
+
+  "Senegalese culture" should {
+    "have male names" in { Senegalese.maleName(rnd) must beEqualTo("Thiemo Ndar")}
+    "have female names" in { Senegalese.femaleName(rnd) must beEqualTo("Aissatou Ndar") }
+  }
+
+  "Portuguese culture" should {
+    "have male names" in { Portuguese.maleName(rnd) must beEqualTo("Gil Cruz")}
+    "have female names" in { Portuguese.femaleName(rnd) must beEqualTo("Apolónia Cruz") }
+  }
+
+  "Danish culture" should {
+    "have male names" in { Danish.maleName(rnd) must beEqualTo("Magnus Rasmussen")}
+    "have female names" in { Danish.femaleName(rnd) must beEqualTo("Camilla Rasmussen") }
+  }
+
+  "Mongolian culture" should {
+    "have male names" in { Mongolian.maleName(rnd) must beEqualTo("Arban Dashyondon")}
+    "have female names" in { Mongolian.femaleName(rnd) must beEqualTo("Arikaboke Dashyondon") }
+  }
+
+  "Florentine culture" should {
+    "have male names" in { Florentine.maleName(rnd) must beEqualTo("Ugo Ruccelai")}
+    "have female names" in { Florentine.femaleName(rnd) must beEqualTo("Savia Ruccelai") }
+  }
+
+  "Italian culture" should {
+    "have male names" in { Italian.maleName(rnd) must beEqualTo("Vito Vasile")}
+    "have female names" in { Italian.femaleName(rnd) must beEqualTo("Caterina Vasile") }
+  }
+
+  "French culture" should {
+    "have male names" in { French.maleName(rnd) must beEqualTo("Eteinne Menard")}
+    "have female names" in { French.femaleName(rnd) must beEqualTo("Manon Menard") }
+  }
+
+
+
+
 }
