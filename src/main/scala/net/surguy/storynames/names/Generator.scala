@@ -178,6 +178,42 @@ object Cultures {
       "female" -> Ruleset(List(take("FEMALE"), take("SURNAMES")))
     ))
 
+  val Modern_Greek = generator.readCulture("/greek.txt",
+    Map("male" -> Ruleset(List(take("MALE"), take("SURNAMES"))),
+      "female" -> Ruleset(List(take("FEMALE"), take("SURNAMES")))
+    ))
+
+  val German = generator.readCulture("/german.txt",
+    Map("male" -> Ruleset(List(oneOf(take("REALISTIC MALE"), take("COLORFUL MALE")), oneOf(take("REALISTIC SURNAMES"), take("COLORFUL SURNAMES")))),
+      "female" -> Ruleset(List(oneOf(take("REALISTIC FEMALE"), take("COLORFUL FEMALE")), oneOf(take("REALISTIC SURNAMES"), take("COLORFUL SURNAMES"))))
+    ))
+
+  val Brazilian = generator.readCulture("/brazilian.txt",
+    Map("male" -> Ruleset(List(take("MALE"), take("SURNAMES"))),
+      "female" -> Ruleset(List(take("FEMALE"), take("SURNAMES")))
+    ))
+
+  val Modern_Irish = generator.readCulture("/irish.txt",
+    Map("male" -> Ruleset(List(take("IRISH MALE"), take("IRISH SURNAMES"))),
+      "female" -> Ruleset(List(take("IRISH FEMALE"), take("IRISH SURNAMES")))
+    ))
+
+  val Irish_Folk = generator.readCulture("/irish.txt",
+    Map("male" -> Ruleset(List(take("MALE FOLK"))),
+      "female" -> Ruleset(List(take("FEMALE FOLK")))
+    ))
+
+  val Czech = generator.readCulture("/czech.txt",
+    Map("male" -> Ruleset(List(take("MALE NAMES"), take("SURNAMES"))),
+      "female" -> Ruleset(List(take("FEMALE NAMES"), take("SURNAMES")))
+    ))
+
+  val Spanish = generator.readCulture("/spanish.txt",
+    Map("male" -> Ruleset(List(regex(take("MALE"),"\\s*\\*",""), take("SURNAMES"), take("SURNAMES"))),
+      "female" -> Ruleset(List(regex(take("FEMALE"),"\\s*\\*",""), take("SURNAMES"), take("SURNAMES")))
+    ))
+
+
   def getCulture(s: String): Culture = {
     s match {
       case "Egyptian" => Egyptian

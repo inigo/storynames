@@ -135,6 +135,48 @@ class GeneratorTest extends SpecificationWithJUnit {
     "have female names" in { French.femaleName(rnd) must beEqualTo("Manon Menard") }
   }
 
+  "Modern Greek culture" should {
+    "have male names" in { Modern_Greek.maleName(rnd) must beEqualTo("Iosif Ioannidis")}
+    "have female names" in { Modern_Greek.femaleName(rnd) must beEqualTo("Eleni Ioannidis") }
+  }
+
+  "German culture" should {
+    "have male names" in { German.maleName(rnd) must beEqualTo("Freidrich Wagner")}
+    "have female names" in { German.femaleName(rnd) must beEqualTo("Gunn Wagner") }
+  }
+
+  "Brazilian culture" should {
+    "have male names" in { Brazilian.maleName(rnd) must beEqualTo("Rui do Nascimento")}
+    "have female names" in { Brazilian.femaleName(rnd) must beEqualTo("Andreia do Nascimento") }
+  }
+
+  "Irish culture" should {
+    "have male names" in { Modern_Irish.maleName(rnd) must beEqualTo("Brendan O'Connor")}
+    "have female names" in { Modern_Irish.femaleName(rnd) must beEqualTo("Fiona O'Connor") }
+  }
+
+  "Irish folk culture" should {
+    "have male names" in { Irish_Folk.maleName(rnd) must beEqualTo("Bóinn (boe-in)")}
+    "have female names" in { Irish_Folk.femaleName(rnd) must beEqualTo("Aoibheall (ee-vul)") }
+  }
+
+  "Czech culture" should {
+    "have male names" in { Czech.maleName(rnd) must beEqualTo("Jan Nemec")}
+    "have female names" in { Czech.femaleName(rnd) must beEqualTo("Tereza Nemec") }
+  }
+
+  "Spanish culture" should {
+    "have male names" in { Spanish.maleName(rnd) must beEqualTo("Abelino del Campo Robledo")}
+    "have female names" in { Spanish.femaleName(rnd) must beEqualTo("Lourdes del Campo Robledo") }
+    "have various more names" in {
+      for (i <- (1 to 100)) {
+        println(Spanish.maleName())
+        println(Spanish.femaleName())
+      }
+      "fish" must beEqualTo("fish")
+    }
+  }
+
 
 
 
