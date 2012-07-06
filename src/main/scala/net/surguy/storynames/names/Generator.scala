@@ -53,6 +53,8 @@ object Ruleset {
     (c: Culture, random: Random) => if (random.nextFloat() < percent) rule(c, random) else ""
   def suffix(rule: Ruleset.Rule, suffix: String) =
     (c: Culture, random: Random) => rule(c, random)+suffix
+  def prefix(prefix: String, rule: Ruleset.Rule) =
+    (c: Culture, random: Random) => prefix + rule(c, random)
   def removeBrackets(rule: Ruleset.Rule) = regex(rule, "\\s*\\(.*\\)")
   def regex(rule: Ruleset.Rule, regex: String, replacement: String = "") =
     (c: Culture, random: Random) => rule(c, random).replaceAll(regex, replacement)
@@ -213,6 +215,36 @@ object Cultures {
       "female" -> Ruleset(List(regex(take("FEMALE"),"\\s*\\*",""), take("SURNAMES"), take("SURNAMES")))
     ))
 
+
+  val Two_Fisted_Space_Opera = generator.readCulture("/space_opera.txt",
+    Map("male" -> Ruleset(List(regex(take("MALE"),"\\s*\\*",""), take("SURNAMES"))),
+      "female" -> Ruleset(List(regex(take("FEMALE"),"\\s*\\*",""), take("SURNAMES")))
+    ))
+
+  val Arthurian = generator.readCulture("/arthurian.txt",
+    Map("male" -> Ruleset(List(take("MALE"))),
+      "female" -> Ruleset(List(take("FEMALE")))
+    ))
+
+  val Medieval_French = generator.readCulture("/medieval_french.txt",
+    Map("male" -> Ruleset(List(take("MALE NAMES"))),
+      "female" -> Ruleset(List(take("FEMALE NAMES")))
+    ))
+
+  val Assyrian = generator.readCulture("/assyrian.txt",
+    Map("male" -> Ruleset(List(take("MALE NAMES"))),
+      "female" -> Ruleset(List(take("FEMALE NAMES")))
+    ))
+
+  val Persian = generator.readCulture("/persian.txt",
+    Map("male" -> Ruleset(List(take("MALE"))),
+      "female" -> Ruleset(List(take("FEMALE")))
+    ))
+
+  val Thousand_and_one_nights = generator.readCulture("/1001_nights.txt",
+    Map("male" -> Ruleset(List(take("MALE"), oneOf(prefix("ibn ", take("MALE")), prefix("al-", take("ADJECTIVES")))  )),
+      "female" -> Ruleset(List(take("FEMALE"), optional(prefix("bint ", take("MALE"))) ))
+    ))
 
   def getCulture(s: String): Culture = {
     s match {

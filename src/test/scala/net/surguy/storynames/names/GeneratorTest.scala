@@ -177,7 +177,34 @@ class GeneratorTest extends SpecificationWithJUnit {
     }
   }
 
+  "Space Opera" should {
+    "have male names" in { Two_Fisted_Space_Opera.maleName(rnd) must beEqualTo("Jim Simpson")}
+    "have female names" in { Two_Fisted_Space_Opera.femaleName(rnd) must beEqualTo("Mary Simpson") }
+  }
 
+  "Arthurian myth" should {
+    "have male names" in { Arthurian.maleName(rnd) must beEqualTo("Bradwr / traitor")}
+    "have female names" in { Arthurian.femaleName(rnd) must beEqualTo("Derwen / oak tree") }
+  }
 
+  "Medieval French culture" should {
+    "have male names" in { Medieval_French.maleName(rnd) must beEqualTo("Theobald")}
+    "have female names" in { Medieval_French.femaleName(rnd) must beEqualTo("Carelia") }
+  }
+
+  "Assyrian culture" should {
+    "have male names" in { Assyrian.maleName(rnd) must beEqualTo("Ador Eil")}
+    "have female names" in { Assyrian.femaleName(rnd) must beEqualTo("Aurhai") }
+  }
+
+  "Persian culture" should {
+    "have male names" in { Persian.maleName(rnd) must beEqualTo("Mirza")}
+    "have female names" in { Persian.femaleName(rnd) must beEqualTo("Zari") }
+  }
+
+  "1001 nights" should {
+    "have male names" in { Thousand_and_one_nights.maleName(rnd) must beEqualTo("Ahmed al-Hakam - judge")}
+    "have female names" in { Thousand_and_one_nights.femaleName(rnd) must beEqualTo("Amira") }
+  }
 
 }
