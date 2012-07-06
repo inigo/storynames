@@ -215,7 +215,6 @@ object Cultures {
       "female" -> Ruleset(List(regex(take("FEMALE"),"\\s*\\*",""), take("SURNAMES"), take("SURNAMES")))
     ))
 
-
   val Two_Fisted_Space_Opera = generator.readCulture("/space_opera.txt",
     Map("male" -> Ruleset(List(regex(take("MALE"),"\\s*\\*",""), take("SURNAMES"))),
       "female" -> Ruleset(List(regex(take("FEMALE"),"\\s*\\*",""), take("SURNAMES")))
@@ -259,6 +258,31 @@ object Cultures {
       case "Chinese" => Chinese
       case "Finnish" => Finnish
       case "Quechua" => Quechua
+      case "Scottish" => Scottish
+      case "Welsh" => Welsh
+      case "English" => English
+      case "Thai" => Thai
+      case "Sicilian" => Sicilian
+      case "Senegalese" => Senegalese
+      case "Portuguese" => Portuguese
+      case "Danish" => Danish
+      case "Mongolian" => Mongolian
+      case "Italian" => Italian
+      case "Florentine" => Florentine
+      case "French" => French
+      case "Modern Greek" => Modern_Greek
+      case "German" => German
+      case "Brazilian" => Brazilian
+      case "Modern Irish" => Modern_Irish
+      case "Irish Folk" => Irish_Folk
+      case "Czech" => Czech
+      case "Spanish" => Spanish
+      case "Two fisted Space Opera" => Two_Fisted_Space_Opera
+      case "Arthurian" => Arthurian
+      case "Medieval_French" => Medieval_French
+      case "Assyrian" => Assyrian
+      case "Persian" => Persian
+      case "1001 Nights" => Thousand_and_one_nights
       case _ => throw new IllegalArgumentException("No such culture")
     }
   }

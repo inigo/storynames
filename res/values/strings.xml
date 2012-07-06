@@ -64,4 +64,43 @@ Icon: <a href="http://www.flickr.com/photos/50534569@N00/2159843888/">Jón Ragna
         <item>Victorian</item>
     </string-array>
 
+    <string-array name="full_culture_array">
+        <item>1001 Nights</item>
+        <item>Angels</item>
+        <item>Arthurian</item>
+        <item>Assyrian</item>
+        <item>Biblical</item>
+        <item>Brazilian</item>
+        <item>Celtic</item>
+        <item>Chinese</item>
+        <item>Czech</item>
+        <item>Danish</item>
+        <item>Egyptian</item>
+        <item>Elizabethan</item>
+        <item>English</item>
+        <item>Finnish</item>
+        <item>Florentine</item>
+        <item>French</item>
+        <item>German</item>
+        <item>Irish Folk</item>
+        <item>Italian</item>
+        <item>Medieval French</item>
+        <item>Modern Greek</item>
+        <item>Modern Irish</item>
+        <item>Mongolian</item>
+        <item>Persian</item>
+        <item>Portuguese</item>
+        <item>Quechua</item>
+        <item>Roman</item>
+        <item>Russian</item>
+        <item>Scottish</item>
+        <item>Senegalese</item>
+        <item>Sicilian</item>
+        <item>Spanish</item>
+        <item>Thai</item>
+        <item>Two fisted Space Opera</item>
+        <item>Victorian</item>
+        <item>Welsh</item>
+    </string-array>
+
 </resources>
