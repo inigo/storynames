@@ -27,7 +27,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="52dp"
                 android:layout_weight="1"
-                android:entries="@array/culture_array"
                 />
         <!--<Space android:layout_height="fill_parent" android:layout_width="fill_parent" android:layout_weight="0.5"/>-->
         <Button android:id="@+id/male"
@@ -35,12 +34,14 @@
                 android:layout_height="50dp"
                 android:layout_weight="1"
                 android:text="Male"
+                android:textColor="@android:color/black"
                 />
         <Button android:id="@+id/female"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:layout_weight="1"
                 android:text="Female"
+                android:textColor="@android:color/black"
                 />
     </LinearLayout>
 </LinearLayout>

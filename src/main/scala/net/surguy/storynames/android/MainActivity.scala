@@ -6,11 +6,11 @@ import net.surguy.storynames.names.Cultures
 import net.surguy.android.shake.ShakeActivity
 import android.widget.AdapterView.OnItemSelectedListener
 import android.view.{MenuItem, Menu, View}
-import android.widget.{Toast, LinearLayout, AdapterView}
+import android.widget._
 import android.graphics.{BitmapFactory, Color}
 import android.graphics.drawable.BitmapDrawable
 import net.surguy.android.{Logging, ImageResizer, RichViews}
-import android.content.Intent
+import android.content.{Context, Intent}
 
 /**
  * Main activity for the app - displays names and allows culture selection.
@@ -27,9 +27,15 @@ class MainActivity extends Activity with ShakeActivity with RichViews with Loggi
     setContentView(R.layout.main)
     lastGenderWasMale = math.random >= 0.5
 
+    val settings = getSharedPreferences("StoryNamesPreferences", Context.MODE_PRIVATE)
+
     val text = findTextView(R.id.text)
 
-    val spinner = findSpinner(R.id.spinner)
+    val spinner: Spinner = findSpinner(R.id.spinner)
+    val cultureList = ArrayAdapter.createFromResource(this, R.array.culture_array, android.R.layout.simple_spinner_item)
+    val fullCultureList = ArrayAdapter.createFromResource(this, R.array.full_culture_array, android.R.layout.simple_spinner_item)
+    val listToUse = if (settings.getBoolean("showMore", false)) fullCultureList else cultureList
+    spinner.setAdapter(listToUse)
     spinner.setSelection(8) // Default to "Roman"
     def cultureName = spinner.getSelectedItem.toString
     def currentCulture = Cultures.getCulture(cultureName)
@@ -49,6 +55,8 @@ class MainActivity extends Activity with ShakeActivity with RichViews with Loggi
           case _ => Color.BLACK
         }
         text.setTextColor(textColor)
+
+        spinner.getChildAt(0).asInstanceOf[TextView].setTextColor(Color.BLACK)
 
         val display = getWindowManager.getDefaultDisplay
         val newWidth = display.getWidth

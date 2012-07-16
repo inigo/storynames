@@ -279,7 +279,7 @@ object Cultures {
       case "Spanish" => Spanish
       case "Two fisted Space Opera" => Two_Fisted_Space_Opera
       case "Arthurian" => Arthurian
-      case "Medieval_French" => Medieval_French
+      case "Medieval French" => Medieval_French
       case "Assyrian" => Assyrian
       case "Persian" => Persian
       case "1001 Nights" => Thousand_and_one_nights
