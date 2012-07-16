@@ -1,9 +1,10 @@
 package net.surguy.android
 
 import android.app.Activity
-import android.widget.{TextView, Spinner, Button}
+import android.widget.{CompoundButton, TextView, Spinner, Button}
 import android.view.View
 import android.view.View.{OnLongClickListener, OnClickListener}
+import android.widget.CompoundButton.OnCheckedChangeListener
 
 /**
  * Add Scala wrappers to improve syntax of Android listeners.
@@ -24,6 +25,18 @@ trait RichViews extends Activity {
   def findView[WidgetType](id : Int): WidgetType = findViewById(id).asInstanceOf[WidgetType]
 
   implicit def richView(v: View): RichView = new RichView(v)
+  implicit def richCompoundButton(v: CompoundButton): RichCompoundButton = new RichCompoundButton(v)
+
+  class RichCompoundButton(v: CompoundButton) {
+    def onChecked(fn: (Boolean) => Unit):CompoundButton = {
+      v.setOnCheckedChangeListener(new OnCheckedChangeListener {
+        def onCheckedChanged(buttonView: CompoundButton, isChecked: Boolean) {
+          fn(isChecked)
+        }
+      })
+      v
+    }
+  }
 
   class RichView(v: View) {
     def onClick(fn: => Unit):View = {

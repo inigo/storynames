@@ -86,12 +86,17 @@ class MainActivity extends Activity with ShakeActivity with RichViews with Loggi
     // Should be possible to replace this with an onClick reference in the menu.xml to showAbout... but this doesn't seem to work in Scala?
     item.getItemId match {
       case R.id.about => showAbout(item)
+      case R.id.options => showOptions(item)
     }
     true
   }
 
   def showAbout(item: MenuItem) {
     startActivity(new Intent(this, classOf[AboutActivity]))
+  }
+
+  def showOptions(item: MenuItem) {
+    startActivity(new Intent(this, classOf[OptionsActivity]))
   }
 
   override def onSaveInstanceState(outState: Bundle) {

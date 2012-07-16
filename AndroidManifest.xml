@@ -17,5 +17,7 @@
         </activity>
         <activity android:name="AboutActivity" android:label="@string/about_title"
                   android:theme="@android:style/Theme.Dialog"/>
+        <activity android:name="OptionsActivity" android:label="@string/options_title"
+                  android:theme="@android:style/Theme.Dialog"/>
     </application>
 </manifest>

@@ -2,6 +2,8 @@
 <resources>
     <string name="app_name">StoryNames Beta</string>
 
+    <string name="options_title">Options</string>
+
     <string name="about_title">About StoryNames</string>
     <string name="about">
 StoryNames is based on the names compiled by The Story Games Names Project,
