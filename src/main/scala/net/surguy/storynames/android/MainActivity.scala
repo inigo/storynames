@@ -9,8 +9,9 @@ import android.view.{MenuItem, Menu, View}
 import android.widget._
 import android.graphics.{BitmapFactory, Color}
 import android.graphics.drawable.BitmapDrawable
-import net.surguy.android.{Logging, ImageResizer, RichViews}
+import net.surguy.android.{Logging, RichViews}
 import android.content.{Context, Intent}
+import collection.mutable.ListBuffer
 
 /**
  * Main activity for the app - displays names and allows culture selection.
@@ -44,10 +45,18 @@ class MainActivity extends Activity with ShakeActivity with RichViews with Loggi
     def cultureName = spinner.getSelectedItem.toString
     def currentCulture = Cultures.getCulture(cultureName)
     def genderSymbolVisible = settings.getBoolean("showGender", false)
-    def createName(): String = {
-      val nameText = if (lastGenderWasMale) currentCulture.maleName() else currentCulture.femaleName()
-      val nameSymbol = if (genderSymbolVisible) (if (lastGenderWasMale) maleSymbol+" " else femaleSymbol+" " ) else ""
-      nameSymbol+nameText
+    def multipleNames = settings.getBoolean("showMultiple", false)
+
+    def getTextToDisplay(isMale: Boolean) = {
+      val genderSymbol = if (genderSymbolVisible) (if (isMale) maleSymbol+" " else femaleSymbol+" " ) else ""
+      val numberOfNames = if (multipleNames) 3 else 1
+      def createNewName = if (isMale) currentCulture.maleName() else currentCulture.femaleName()
+      val nameItems: ListBuffer[String] = new ListBuffer[String]
+      while (nameItems.length < numberOfNames) {
+        val newName = genderSymbol + createNewName
+        if (! nameItems.contains(newName)) nameItems += newName
+      }
+      nameItems.mkString("\n\n")
     }
 
     spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
@@ -80,24 +89,17 @@ class MainActivity extends Activity with ShakeActivity with RichViews with Loggi
         findView[LinearLayout](R.id.background).setBackgroundDrawable(bitmapDrawable)
 
         if (previousCultureName!=cultureName) {
-          text.setText(createName())
+          text.setText(getTextToDisplay(lastGenderWasMale))
         }
 
         previousCultureName = cultureName
       }
       override def onNothingSelected(parent: AdapterView[_]) {}
     })
-    findButton(R.id.male).onClick{
-      val genderSymbol = if (genderSymbolVisible) maleSymbol + " " else ""
-      text.setText(genderSymbol + currentCulture.maleName())
-      lastGenderWasMale = true
-    }
-    findButton(R.id.female).onClick{
-      val genderSymbol = if (genderSymbolVisible) femaleSymbol + " " else ""
-      text.setText(genderSymbol + currentCulture.femaleName())
-      lastGenderWasMale = false
-    }
-    shakeListener = createShakeListener( text.setText(createName()) )
+
+    findButton(R.id.male).onClick{ text.setText(getTextToDisplay(isMale = true)); lastGenderWasMale = true }
+    findButton(R.id.female).onClick{ text.setText(getTextToDisplay(isMale = false)); lastGenderWasMale = false }
+    shakeListener = createShakeListener( text.setText(getTextToDisplay(lastGenderWasMale)) )
   }
 
   override def onCreateOptionsMenu(menu: Menu) = {
