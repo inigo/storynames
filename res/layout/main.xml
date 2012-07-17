@@ -15,7 +15,7 @@
               android:gravity="center_horizontal"
               android:textColor="#ffffff"
               android:layout_weight="1"
-              android:text="Lorem Ipsum Transformius (something)" />
+              android:text="Press button or shake" />
 
     <LinearLayout android:layout_width="fill_parent"
                   android:gravity="bottom"
@@ -26,6 +26,7 @@
                 android:id="@+id/spinner"
                 android:layout_width="wrap_content"
                 android:layout_height="52dp"
+                android:background="#99a0a0a0"
                 android:layout_weight="1"
                 />
         <!--<Space android:layout_height="fill_parent" android:layout_width="fill_parent" android:layout_weight="0.5"/>-->
@@ -34,6 +35,7 @@
                 android:layout_height="50dp"
                 android:layout_weight="1"
                 android:text="Male"
+                android:background="#99a0a0a0"
                 android:textColor="@android:color/black"
                 />
         <Button android:id="@+id/female"
@@ -41,6 +43,7 @@
                 android:layout_height="50dp"
                 android:layout_weight="1"
                 android:text="Female"
+                android:background="#99a0a0a0"
                 android:textColor="@android:color/black"
                 />
     </LinearLayout>
