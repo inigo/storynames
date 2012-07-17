@@ -19,6 +19,10 @@ import android.content.{Context, Intent}
  */
 class MainActivity extends Activity with ShakeActivity with RichViews with Logging {
 
+  // The Unicode symbols for male and female
+  val maleSymbol = "\u2642"
+  val femaleSymbol = "\u2640"
+
   var lastGenderWasMale = true
   var previousCultureName = ""
 
@@ -39,8 +43,11 @@ class MainActivity extends Activity with ShakeActivity with RichViews with Loggi
     spinner.setSelection(8) // Default to "Roman"
     def cultureName = spinner.getSelectedItem.toString
     def currentCulture = Cultures.getCulture(cultureName)
+    def genderSymbolVisible = settings.getBoolean("showGender", false)
     def createName(): String = {
-      if (lastGenderWasMale) currentCulture.maleName() else currentCulture.femaleName()
+      val nameText = if (lastGenderWasMale) currentCulture.maleName() else currentCulture.femaleName()
+      val nameSymbol = if (genderSymbolVisible) (if (lastGenderWasMale) maleSymbol+" " else femaleSymbol+" " ) else ""
+      nameSymbol+nameText
     }
 
     spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
@@ -80,8 +87,16 @@ class MainActivity extends Activity with ShakeActivity with RichViews with Loggi
       }
       override def onNothingSelected(parent: AdapterView[_]) {}
     })
-    findButton(R.id.male).onClick{ text.setText(currentCulture.maleName()); lastGenderWasMale = true }
-    findButton(R.id.female).onClick{ text.setText(currentCulture.femaleName()); lastGenderWasMale = false }
+    findButton(R.id.male).onClick{
+      val genderSymbol = if (genderSymbolVisible) maleSymbol + " " else ""
+      text.setText(genderSymbol + currentCulture.maleName())
+      lastGenderWasMale = true
+    }
+    findButton(R.id.female).onClick{
+      val genderSymbol = if (genderSymbolVisible) femaleSymbol + " " else ""
+      text.setText(genderSymbol + currentCulture.femaleName())
+      lastGenderWasMale = false
+    }
     shakeListener = createShakeListener( text.setText(createName()) )
   }
 
