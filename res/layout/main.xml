@@ -25,11 +25,11 @@
         <Spinner
                 android:id="@+id/spinner"
                 android:layout_width="wrap_content"
-                android:layout_height="52dp"
+                android:layout_height="50dp"
                 android:background="#99a0a0a0"
                 android:layout_weight="1"
                 />
-        <!--<Space android:layout_height="fill_parent" android:layout_width="fill_parent" android:layout_weight="0.5"/>-->
+        <Space android:layout_height="fill_parent" android:layout_width="5dp" />
         <Button android:id="@+id/male"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
@@ -38,6 +38,7 @@
                 android:background="#99a0a0a0"
                 android:textColor="@android:color/black"
                 />
+        <Space android:layout_height="fill_parent" android:layout_width="5dp" />
         <Button android:id="@+id/female"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
