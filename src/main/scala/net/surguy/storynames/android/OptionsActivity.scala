@@ -23,7 +23,11 @@ class OptionsActivity extends Activity with RichViews with Logging {
 
     val showMoreBox = findView[CheckBox](R.id.showMore)
     showMoreBox.setChecked(settings.getBoolean("showMore", false))
-    showMoreBox.onChecked( (b: Boolean) => settings.edit.putBoolean("showMore", b).commit() )
+    showMoreBox.onChecked( (b: Boolean) => {
+      settings.edit.putBoolean("showMore", b).commit()
+      val listToUse = if (b) MainActivity.fullCultureList else MainActivity.cultureList
+      MainActivity.spinner.setAdapter(listToUse)
+    } )
 
     val showGenderBox = findView[CheckBox](R.id.showGender)
     showGenderBox.setChecked(settings.getBoolean("showGender", false))

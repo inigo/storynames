@@ -36,24 +36,28 @@ class MainActivity extends Activity with ShakeActivity with RichViews with Loggi
 
     val text = findTextView(R.id.text)
 
-    val spinner: Spinner = findSpinner(R.id.spinner)
-    val cultureList = ArrayAdapter.createFromResource(this, R.array.culture_array, android.R.layout.simple_spinner_item)
-    val fullCultureList = ArrayAdapter.createFromResource(this, R.array.full_culture_array, android.R.layout.simple_spinner_item)
+    MainActivity.cultureList = ArrayAdapter.createFromResource(this, R.array.culture_array, android.R.layout.simple_spinner_item)
+    MainActivity.fullCultureList = ArrayAdapter.createFromResource(this, R.array.full_culture_array, android.R.layout.simple_spinner_item)
+    MainActivity.spinner = findSpinner(R.id.spinner)
     def setSpinnerAdapter() {
       debug("Changing spinner adapter - new value is "+(if (settings.getBoolean("showMore", false)) "full" else "short"))
-      val listToUse = if (settings.getBoolean("showMore", false)) fullCultureList else cultureList
-      spinner.setAdapter(listToUse)
+      val listToUse = if (settings.getBoolean("showMore", false)) MainActivity.fullCultureList else MainActivity.cultureList
+      MainActivity.spinner.setAdapter(listToUse)
     }
     setSpinnerAdapter()
-    spinner.setSelection(8) // Default to "Roman"
+    MainActivity.spinner.setSelection(8) // Default to "Roman"
 
-    settings.registerOnSharedPreferenceChangeListener(new SharedPreferences.OnSharedPreferenceChangeListener() {
-      def onSharedPreferenceChanged(p1: SharedPreferences, key: String) {
-        if (key=="showMore") setSpinnerAdapter()
-      }
-    })
+    // Doesn't appear to work?
+//    settings.registerOnSharedPreferenceChangeListener(new SharedPreferences.OnSharedPreferenceChangeListener() {
+//      def onSharedPreferenceChanged(p1: SharedPreferences, key: String) {
+//        if (key=="showMore") {
+//          setSpinnerAdapter()
+//          MainActivity.spinner.refreshDrawableState()
+//        }
+//      }
+//    })
 
-    def cultureName = spinner.getSelectedItem.toString
+    def cultureName = MainActivity.spinner.getSelectedItem.toString
     def currentCulture = Cultures.getCulture(cultureName)
     def genderSymbolVisible = settings.getBoolean("showGender", false)
     def multipleNames = settings.getBoolean("showMultiple", false)
@@ -70,7 +74,7 @@ class MainActivity extends Activity with ShakeActivity with RichViews with Loggi
       nameItems.mkString("\n\n")
     }
 
-    spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+    MainActivity.spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
       override def onItemSelected(parent: AdapterView[_], view: View, position: Int, id: Long) {
         val textColor = cultureName match {
           case "Celtic" => Color.WHITE
@@ -83,7 +87,7 @@ class MainActivity extends Activity with ShakeActivity with RichViews with Loggi
         }
         text.setTextColor(textColor)
 
-        if (spinner.getChildAt(0)!=null) spinner.getChildAt(0).asInstanceOf[TextView].setTextColor(Color.BLACK)
+        if (MainActivity.spinner.getChildAt(0)!=null) MainActivity.spinner.getChildAt(0).asInstanceOf[TextView].setTextColor(Color.BLACK)
 
         val display = getWindowManager.getDefaultDisplay
         val newWidth = display.getWidth
@@ -151,4 +155,10 @@ class MainActivity extends Activity with ShakeActivity with RichViews with Loggi
     previousCultureName = savedState.getString("previousCultureName")
   }
 
+}
+
+object MainActivity {
+  var spinner: Spinner = null
+  var cultureList: ArrayAdapter[CharSequence] = null
+  var fullCultureList: ArrayAdapter[CharSequence] = null
 }
