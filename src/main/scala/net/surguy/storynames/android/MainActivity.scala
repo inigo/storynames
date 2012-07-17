@@ -83,7 +83,7 @@ class MainActivity extends Activity with ShakeActivity with RichViews with Loggi
         }
         text.setTextColor(textColor)
 
-        spinner.getChildAt(0).asInstanceOf[TextView].setTextColor(Color.BLACK)
+        if (spinner.getChildAt(0)!=null) spinner.getChildAt(0).asInstanceOf[TextView].setTextColor(Color.BLACK)
 
         val display = getWindowManager.getDefaultDisplay
         val newWidth = display.getWidth
