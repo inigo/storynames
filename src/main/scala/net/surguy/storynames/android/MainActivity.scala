@@ -10,7 +10,7 @@ import android.widget._
 import android.graphics.{BitmapFactory, Color}
 import android.graphics.drawable.BitmapDrawable
 import net.surguy.android.{Logging, RichViews}
-import android.content.{Context, Intent}
+import android.content.{SharedPreferences, Context, Intent}
 import collection.mutable.ListBuffer
 
 /**
@@ -39,9 +39,20 @@ class MainActivity extends Activity with ShakeActivity with RichViews with Loggi
     val spinner: Spinner = findSpinner(R.id.spinner)
     val cultureList = ArrayAdapter.createFromResource(this, R.array.culture_array, android.R.layout.simple_spinner_item)
     val fullCultureList = ArrayAdapter.createFromResource(this, R.array.full_culture_array, android.R.layout.simple_spinner_item)
-    val listToUse = if (settings.getBoolean("showMore", false)) fullCultureList else cultureList
-    spinner.setAdapter(listToUse)
+    def setSpinnerAdapter() {
+      debug("Changing spinner adapter - new value is "+(if (settings.getBoolean("showMore", false)) "full" else "short"))
+      val listToUse = if (settings.getBoolean("showMore", false)) fullCultureList else cultureList
+      spinner.setAdapter(listToUse)
+    }
+    setSpinnerAdapter()
     spinner.setSelection(8) // Default to "Roman"
+
+    settings.registerOnSharedPreferenceChangeListener(new SharedPreferences.OnSharedPreferenceChangeListener() {
+      def onSharedPreferenceChanged(p1: SharedPreferences, key: String) {
+        if (key=="showMore") setSpinnerAdapter()
+      }
+    })
+
     def cultureName = spinner.getSelectedItem.toString
     def currentCulture = Cultures.getCulture(cultureName)
     def genderSymbolVisible = settings.getBoolean("showGender", false)
