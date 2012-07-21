@@ -10,7 +10,7 @@ import android.widget._
 import android.graphics.{BitmapFactory, Color}
 import android.graphics.drawable.BitmapDrawable
 import net.surguy.android.{Logging, RichViews}
-import android.content.{SharedPreferences, Context, Intent}
+import android.content.Intent
 import collection.mutable.ListBuffer
 
 /**
@@ -32,39 +32,16 @@ class MainActivity extends Activity with ShakeActivity with RichViews with Loggi
     setContentView(R.layout.main)
     lastGenderWasMale = math.random >= 0.5
 
-    val settings = getSharedPreferences("StoryNamesPreferences", Context.MODE_PRIVATE)
-
     val text = findTextView(R.id.text)
 
-    MainActivity.cultureList = ArrayAdapter.createFromResource(this, R.array.culture_array, android.R.layout.simple_spinner_item)
-    MainActivity.fullCultureList = ArrayAdapter.createFromResource(this, R.array.full_culture_array, android.R.layout.simple_spinner_item)
-    MainActivity.spinner = findSpinner(R.id.spinner)
-    def setSpinnerAdapter() {
-      debug("Changing spinner adapter - new value is "+(if (settings.getBoolean("showMore", false)) "full" else "short"))
-      val listToUse = if (settings.getBoolean("showMore", false)) MainActivity.fullCultureList else MainActivity.cultureList
-      MainActivity.spinner.setAdapter(listToUse)
-    }
-    setSpinnerAdapter()
-    MainActivity.spinner.setSelection(8) // Default to "Roman"
+    val spinner = findSpinner(R.id.spinner)
 
-    // Doesn't appear to work?
-//    settings.registerOnSharedPreferenceChangeListener(new SharedPreferences.OnSharedPreferenceChangeListener() {
-//      def onSharedPreferenceChanged(p1: SharedPreferences, key: String) {
-//        if (key=="showMore") {
-//          setSpinnerAdapter()
-//          MainActivity.spinner.refreshDrawableState()
-//        }
-//      }
-//    })
-
-    def cultureName = MainActivity.spinner.getSelectedItem.toString
+    def cultureName = spinner.getSelectedItem.toString
     def currentCulture = Cultures.getCulture(cultureName)
-    def genderSymbolVisible = settings.getBoolean("showGender", false)
-    def multipleNames = settings.getBoolean("showMultiple", false)
 
     def getTextToDisplay(isMale: Boolean) = {
-      val genderSymbol = if (genderSymbolVisible) (if (isMale) maleSymbol+" " else femaleSymbol+" " ) else ""
-      val numberOfNames = if (multipleNames) 3 else 1
+      val genderSymbol = if (isMale) maleSymbol+" " else femaleSymbol+" "
+      val numberOfNames = 3
       def createNewName = if (isMale) currentCulture.maleName() else currentCulture.femaleName()
       val nameItems: ListBuffer[String] = new ListBuffer[String]
       while (nameItems.length < numberOfNames) {
@@ -74,7 +51,7 @@ class MainActivity extends Activity with ShakeActivity with RichViews with Loggi
       nameItems.mkString("\n\n")
     }
 
-    MainActivity.spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+    spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
       override def onItemSelected(parent: AdapterView[_], view: View, position: Int, id: Long) {
         val textColor = cultureName match {
           case "Celtic" => Color.WHITE
@@ -87,7 +64,7 @@ class MainActivity extends Activity with ShakeActivity with RichViews with Loggi
         }
         text.setTextColor(textColor)
 
-        if (MainActivity.spinner.getChildAt(0)!=null) MainActivity.spinner.getChildAt(0).asInstanceOf[TextView].setTextColor(Color.BLACK)
+        if (spinner.getChildAt(0)!=null) spinner.getChildAt(0).asInstanceOf[TextView].setTextColor(Color.BLACK)
 
         val display = getWindowManager.getDefaultDisplay
         val newWidth = display.getWidth
@@ -126,17 +103,12 @@ class MainActivity extends Activity with ShakeActivity with RichViews with Loggi
     // Should be possible to replace this with an onClick reference in the menu.xml to showAbout... but this doesn't seem to work in Scala?
     item.getItemId match {
       case R.id.about => showAbout(item)
-      case R.id.options => showOptions(item)
     }
     true
   }
 
   def showAbout(item: MenuItem) {
     startActivity(new Intent(this, classOf[AboutActivity]))
-  }
-
-  def showOptions(item: MenuItem) {
-    startActivity(new Intent(this, classOf[OptionsActivity]))
   }
 
   override def onSaveInstanceState(outState: Bundle) {
@@ -155,10 +127,4 @@ class MainActivity extends Activity with ShakeActivity with RichViews with Loggi
     previousCultureName = savedState.getString("previousCultureName")
   }
 
-}
-
-object MainActivity {
-  var spinner: Spinner = null
-  var cultureList: ArrayAdapter[CharSequence] = null
-  var fullCultureList: ArrayAdapter[CharSequence] = null
 }

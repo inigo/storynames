@@ -27,6 +27,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:background="#99a0a0a0"
+                android:entries="@array/full_culture_array"
                 android:layout_weight="1"
                 />
         <View android:layout_height="fill_parent" android:layout_width="5dp" />
